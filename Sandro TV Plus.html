@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SANDRO STREAM PLUS · Edizione Platinum</title>
+    
+    <!-- PWA / iPad Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sandro Stream+">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#e50914">
+    
+    <!-- Icone per iPad/iPhone -->
+<link rel="apple-touch-icon" sizes="76x76" href="icone/sandro-icon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icone/sandro-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icone/sandro-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icone/sandro-icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icone/sandro-icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icone/sandro-icon-512.png">
+    
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-dark: #b2070f;
+            --primary-glow: rgba(229, 9, 20, 0.5);
+            --dark: #0f0f0f;
+            --darker: #0a0a0a;
+            --panel: #1a1a1a;
+            --border: #333;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --plus-gold: #ffd700;
+            --rec-red: #ff3b30;
+            --success: #34c759;
+            --shadow: 0 8px 30px rgba(0,0,0,0.6);
+            --shadow-glow: 0 0 20px var(--primary-glow);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --gradient-gold: linear-gradient(135deg, #ffd700, #ffaa00, #ffd700);
+            --gradient-red: linear-gradient(135deg, #e50914, #b2070f, #e50914);
+            --gradient-dark: linear-gradient(135deg, #1a1a1a, #0a0a0a, #1a1a1a);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            touch-action: manipulation;
+            position: relative;
+        }
+
+        /* Animated background con effetto wow */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: gradientShift 10s ease infinite;
+            filter: blur(20px);
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent 0px, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* HEADER PROFESSIONALE */
+        header {
+            height: 70px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            flex-shrink: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(229, 9, 20, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(10%, 10%); }
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 26px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 2px 10px rgba(229, 9, 20, 0.5);
+            position: relative;
+            z-index: 10;
+            animation: titlePulse 2s ease infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 2px 10px rgba(229,9,20,0.5); }
+            50% { text-shadow: 0 0 40px rgba(255,255,255,1), 0 4px 20px rgba(229,9,20,0.8); }
+        }
+
+        .brand span { 
+            background: var(--gradient-red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 8px;
+            font-size: 30px;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
+            animation: playPulse 1.5s ease infinite;
+        }
+
+        @keyframes playPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255,0,0,0.8)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px rgba(255,0,0,1)); }
+        }
+
+        .badge-plus {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            animation: goldShine 3s ease infinite;
+            color: #000000;
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 25px;
+            font-weight: 900;
+            margin-left: 15px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 165, 0, 0.4);
+            display: inline-block;
+            border: 2px solid rgba(255, 215, 0, 0.9);
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 20;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .badge-plus:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        @keyframes goldShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .system-status {
+            font-size: 13px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-status::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--success);
+            display: inline-block;
+            margin-right: 6px;
+            box-shadow: 0 0 15px var(--success);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* MAIN LAYOUT */
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+            position: relative;
+        }
+
+        /* SIDEBAR MODERNA */
+        .sidebar {
+            width: 350px;
+            background: linear-gradient(180deg, rgba(26,26,26,0.95), rgba(10,10,10,0.98));
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 0 30px rgba(0,0,0,0.5);
+            border-right: 1px solid rgba(229, 9, 20, 0.3);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(229,9,20,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .channel-count {
+            background: var(--gradient-red);
+            color: #fff;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 0 15px var(--primary);
+            animation: countPulse 2s ease infinite;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--primary); }
+            50% { box-shadow: 0 0 30px var(--primary); }
+        }
+
+        .playlist-selector {
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .playlist-selector select {
+            flex: 1;
+            background: rgba(10,10,10,0.9);
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .playlist-selector select:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .playlist-actions {
+            display: flex;
+            gap: 8px;
+            padding: 15px;
+        }
+
+        .playlist-actions button {
+            flex: 1;
+            padding: 12px 5px;
+            font-size: 12px;
+            background: rgba(51, 51, 51, 0.8);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .playlist-actions button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .playlist-actions button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .playlist-actions button:hover {
+            background: var(--gradient-red);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+            border-color: var(--primary);
+        }
+
+        .channel-list {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar personalizzata con effetto glow */
+        .channel-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .channel-list::-webkit-scrollbar-track {
+            background: var(--darker);
+            border-radius: 4px;
+        }
+
+        .channel-list::-webkit-scrollbar-thumb {
+            background: var(--gradient-red);
+            border-radius: 4px;
+            border: 2px solid transparent;
+            animation: scrollGlow 2s ease infinite;
+        }
+
+        @keyframes scrollGlow {
+            0%, 100% { box-shadow: 0 0 5px var(--primary); }
+            50% { box-shadow: 0 0 15px var(--primary); }
+        }
+
+        .channel-list::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff3b30, #e50914);
+        }
+
+        .channel-item {
+            padding: 15px;
+            margin: 5px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(229,9,20,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .channel-item:hover::before {
+            left: 100%;
+        }
+
+        .channel-item:hover { 
+            background: rgba(229, 9, 20, 0.15);
+            transform: translateX(8px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.3);
+        }
+        
+        .channel-item.active { 
+            background: linear-gradient(135deg, rgba(229, 9, 20, 0.25), rgba(229, 9, 20, 0.1));
+            border-left: 4px solid var(--primary);
+            border-radius: 12px 0 0 12px;
+            box-shadow: inset 0 0 30px rgba(229, 9, 20, 0.2), 0 5px 20px rgba(229,9,20,0.3);
+            transform: scale(1.02);
+            animation: activePulse 2s ease infinite;
+        }
+
+        @keyframes activePulse {
+            0%, 100% { border-left-color: var(--primary); }
+            50% { border-left-color: #fff; }
+        }
+
+        .channel-logo {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #333, #222);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #666;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .channel-item:hover .channel-logo {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 25px var(--primary-glow);
+            border-color: var(--primary);
+        }
+
+        .channel-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .channel-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .channel-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+        }
+
+        .channel-group {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* PLAYER AREA */
+        .player-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            position: relative;
+        }
+
+        .video-container {
+            flex: 1;
+            width: 100%;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(229,9,20,0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+            animation: videoGlow 5s ease infinite;
+        }
+
+        @keyframes videoGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            outline: none;
+            box-shadow: 0 0 80px rgba(229, 9, 20, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        video:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 100px rgba(229, 9, 20, 0.3);
+        }
+
+        /* Effetto flash per screenshot */
+        .video-flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.1s;
+        }
+
+        .video-flash.flash {
+            opacity: 0.8;
+            animation: flashEffect 0.2s ease-out;
+        }
+
+        @keyframes flashEffect {
+            0% { opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* CONTROL BAR MODERNA - PULSANTI PIÙ DISCRETI */
+        .control-bar {
+            background: linear-gradient(180deg, rgba(26,26,26,0.95), rgba(10,10,10,0.98));
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 -2px 15px rgba(229, 9, 20, 0.1);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-wrapper {
+            flex: 2;
+            min-width: 280px;
+            display: flex;
+            gap: 6px;
+            position: relative;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: rgba(10,10,10,0.9);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        input[type="text"]:focus { 
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(40,40,40,0.8);
+            color: #ddd;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.05);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary { 
+            background: rgba(229, 9, 20, 0.8);
+            color: #fff;
+            border-color: rgba(229, 9, 20, 0.3);
+        }
+
+        .btn-primary:hover { 
+            background: rgba(229, 9, 20, 0.9);
+            box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+        }
+
+        .btn-secondary { 
+            background: rgba(60, 60, 60, 0.8);
+            color: #ddd;
+        }
+
+        .btn-secondary:hover { 
+            background: rgba(80, 80, 80, 0.9);
+        }
+
+        .btn-record { 
+            min-width: 110px;
+            background: rgba(255, 59, 48, 0.8);
+            color: #fff;
+        }
+        
+        .btn-record.recording { 
+            animation: pulse-record 1.5s infinite;
+        }
+
+        @keyframes pulse-record {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 59, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+        }
+
+        .btn-screenshot {
+            background: rgba(74, 144, 226, 0.8);
+            color: #fff;
+        }
+
+        .btn-screenshot:hover {
+            background: rgba(74, 144, 226, 0.9);
+        }
+
+        .btn-audio {
+            background: rgba(80, 200, 120, 0.8);
+            color: #fff;
+        }
+
+        .btn-audio.muted {
+            background: rgba(255, 107, 107, 0.8);
+        }
+
+        .btn-pip {
+            background: rgba(155, 89, 182, 0.8);
+            color: #fff;
+        }
+
+        .btn-icon { 
+            padding: 10px; 
+            font-size: 16px; 
+        }
+
+        /* INFO BAR */
+        .info-bar {
+            background: linear-gradient(90deg, #000, var(--darker), #000);
+            padding: 10px 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+            position: relative;
+            border-top: 1px solid rgba(229,9,20,0.2);
+            border-bottom: 1px solid rgba(229,9,20,0.2);
+        }
+
+        #currentChannelInfo {
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recording-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--rec-red);
+            font-weight: 700;
+            display: none;
+        }
+
+        .recording-indicator.active { 
+            display: flex;
+            animation: fade-pulse 1.5s infinite;
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px red; }
+            50% { opacity: 0.7; text-shadow: 0 0 20px red; }
+        }
+
+        #recTimer {
+            font-family: monospace;
+            font-size: 14px;
+            background: rgba(255,59,48,0.15);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,59,48,0.2);
+        }
+
+        /* RECORDINGS PANEL */
+        .recordings-panel {
+            background: linear-gradient(180deg, rgba(26,26,26,0.98), rgba(10,10,10,0.99));
+            backdrop-filter: blur(10px);
+            height: 250px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: none;
+            position: relative;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+        }
+
+        .recordings-panel.open { 
+            display: block;
+            animation: slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .recordings-header {
+            padding: 12px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .rec-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            transition: var(--transition);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rec-item:hover { 
+            background: rgba(229, 9, 20, 0.1);
+            transform: translateX(5px);
+        }
+
+        .rec-actions { display: flex; gap: 8px; }
+        .btn-sm { 
+            padding: 6px 10px; 
+            font-size: 11px; 
+            border-radius: 5px;
+        }
+
+        input[type="file"] { display: none; }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #444;
+            font-size: 13px;
+            animation: float 3s ease infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .empty-state-icon { font-size: 48px; margin-bottom: 15px; opacity: 0.5; filter: drop-shadow(0 0 10px var(--primary)); }
+
+        /* TOAST MODERNO */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(26,26,26,0.98);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+            z-index: 2000;
+            border-left: 3px solid var(--primary);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateX(100%);
+            font-weight: 500;
+        }
+        .toast.show { 
+            opacity: 1; 
+            transform: translateX(0);
+        }
+
+        /* INSTALL PROMPT */
+        .install-prompt {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #222, #1a1a1a);
+            border: 2px solid var(--primary);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 2000;
+            display: none;
+            max-width: 320px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+        }
+        .install-prompt.show { 
+            display: block;
+            animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .install-prompt h4 { 
+            margin: 0 0 10px 0; 
+            color: #fff; 
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 0 0 8px var(--primary);
+        }
+        .install-prompt p { 
+            margin: 0 0 15px 0; 
+            color: #aaa; 
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .install-prompt button { 
+            width: 100%; 
+            padding: 12px;
+            font-size: 14px;
+            background: var(--gradient-red);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .install-prompt button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+        }
+
+        /* MODAL GESTIONE PLAYLIST */
+        #playlistManagerModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            width: 500px;
+            max-width: 95%;
+            max-height: 80vh;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            animation: modalAppear 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #fff;
+            font-size: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            text-shadow: 0 0 8px var(--primary);
+        }
+
+        #savedPlaylistsList {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 5px;
+        }
+
+        .playlist-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border-radius: 10px;
+            margin-bottom: 5px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+        }
+
+        .playlist-item:hover {
+            background: rgba(229, 9, 20, 0.1);
+            border-color: var(--primary);
+            transform: scale(1.01);
+        }
+
+        .playlist-item-info {
+            flex: 1;
+        }
+
+        .playlist-item-info strong {
+            color: #fff;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .playlist-item-info small {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .playlist-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            .sidebar { 
+                position: absolute; 
+                left: -100%; 
+                width: 85%;
+                height: 100%; 
+                z-index: 1000; 
+                transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: 5px 0 30px rgba(0,0,0,0.8);
+            }
+            .sidebar.open { left: 0; }
+            .control-bar { 
+                flex-direction: column; 
+                align-items: stretch;
+                padding: 8px;
+            }
+            .input-wrapper { min-width: 100%; }
+            .menu-toggle { display: block !important; }
+            .brand { font-size: 18px; }
+            .system-status { padding: 5px 10px; gap: 8px; font-size: 11px; }
+            .system-status span:last-child { display: none; }
+            .toast { left: 10px; right: 10px; bottom: 10px; text-align: center; }
+            .control-group { 
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .btn { 
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+            .btn-icon { 
+                padding: 8px; 
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(229, 9, 20, 0.2);
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Badge per i gruppi */
+        .group-badge {
+            background: var(--gradient-red);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        /* Screenshot preview */
+        .screenshot-preview {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            width: 160px;
+            height: 90px;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: slideInLeft 0.2s ease;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .screenshot-preview:hover {
+            transform: scale(1.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            z-index: 1001;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Audio status */
+        .audio-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            color: #fff;
+            font-size: 12px;
+            z-index: 10;
+            animation: fadeInOut 1s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-15px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div style="display: flex; align-items: center;">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="brand">
+            <span>▶</span> SANDRO STREAM
+            <div class="badge-plus">PLUS</div>
+        </div>
+    </div>
+    <div class="system-status">
+        <span><span class="status-dot"></span>Sistema Premium</span>
+        <span id="clock">00:00</span>
+        <span id="connection-status" style="color: var(--success);">● Live 4K</span>
+    </div>
+</header>
+
+<!-- MAIN WRAPPER -->
+<div class="main-wrapper">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>📺 CANALI ITALIA</span>
+            <span class="channel-count" id="channelCount">0</span>
+        </div>
+        
+        <!-- Gestione playlist -->
+        <div class="playlist-selector">
+            <span>📋</span>
+            <select id="playlistSelector" onchange="loadSavedPlaylist(parseInt(this.value) || '')">
+                <option value="">Seleziona playlist</option>
+            </select>
+        </div>
+        
+        <div class="playlist-actions">
+            <button onclick="saveCurrentPlaylist()">💾 Salva</button>
+            <button onclick="exportPlaylist()">📤 Esporta</button>
+            <button onclick="showPlaylistManager()">⚙️ Gestisci</button>
+        </div>
+        
+        <!-- Lista canali -->
+        <div class="channel-list" id="channelList">
+            <div class="empty-state">
+                <div class="empty-state-icon">📺</div>
+                <div>Carica una playlist per iniziare</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- PLAYER AREA -->
+    <main class="player-area">
+        
+        <!-- VIDEO CONTAINER CON FLASH EFFEECT -->
+        <div class="video-container">
+            <video id="video" controls crossorigin="anonymous" playsinline webkit-playsinline></video>
+            <div class="video-flash" id="videoFlash"></div>
+        </div>
+
+        <!-- INFO BAR -->
+        <div class="info-bar">
+            <div id="currentChannelInfo">
+                <span style="color: var(--text-muted);">●</span> Seleziona un canale
+            </div>
+            <div class="recording-indicator" id="recIndicator">
+                <span style="color: var(--rec-red);">● REC</span>
+                <span id="recTimer">00:00:00</span>
+            </div>
+        </div>
+
+        <!-- CONTROL BAR CON PULSANTI DISCRETI -->
+        <div class="control-bar">
+            <div class="control-group input-wrapper">
+                <input type="text" id="m3uInput" placeholder="Incolla URL lista M3U...">
+                <button class="btn btn-primary" onclick="loadPlaylistFromURL()">
+                    <span>🔗</span> Carica
+                </button>
+            </div>
+            <div class="control-group">
+                <input type="file" id="m3uFileInput" accept=".m3u,.m3u8,.txt" onchange="loadPlaylistFromFile(this)">
+                <button class="btn btn-secondary" onclick="document.getElementById('m3uFileInput').click()">
+                    📁 File
+                </button>
+                
+                <button class="btn btn-screenshot" onclick="takeScreenshot()">
+                    📸
+                </button>
+                
+                <button class="btn btn-audio" id="audioBtn" onclick="toggleAudio()">
+                    🔊
+                </button>
+                
+                <button class="btn btn-pip" onclick="togglePip()">
+                    🖼️
+                </button>
+                
+                <button class="btn btn-record" id="recordBtn" onclick="toggleRecording()">
+                    <span id="recordBtnText">● Rec</span>
+                </button>
+                <button class="btn btn-secondary btn-icon" onclick="toggleRecordingsPanel()">
+                    📼
+                </button>
+            </div>
+        </div>
+
+        <!-- RECORDINGS PANEL -->
+        <div class="recordings-panel" id="recordingsPanel">
+            <div class="recordings-header">
+                <span>📼 ARCHIVIO (<span id="recCount">0</span>)</span>
+                <span style="color: var(--text-muted); font-size: 10px;">Clicca per riprodurre</span>
+            </div>
+            <div id="recordingsList">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📼</div>
+                    <div>Nessuna registrazione</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- INSTALL PROMPT -->
+<div class="install-prompt" id="installPrompt">
+    <h4>📲 Installa Sandro Stream PLUS</h4>
+    <p>Aggiungi alla schermata Home per un'esperienza ultra premium su iPad.</p>
+    <button onclick="closeInstallPrompt()">Installa ora</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Operazione completata</div>
+
+<!-- MODAL GESTIONE PLAYLIST -->
+<div id="playlistManagerModal">
+    <div class="modal-content">
+        <h3>⚙️ GESTIONE PLAYLIST</h3>
+        <div id="savedPlaylistsList" class="playlist-list"></div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary" style="flex: 1;" onclick="closePlaylistManager()">Chiudi</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // === VARIABILI GLOBALI ===
+    const video = document.getElementById('video');
+    const videoFlash = document.getElementById('videoFlash');
+    const channelListContainer = document.getElementById('channelList');
+    const channelCountEl = document.getElementById('channelCount');
+    const currentChannelInfo = document.getElementById('currentChannelInfo');
+    const recordBtn = document.getElementById('recordBtn');
+    const recordBtnText = document.getElementById('recordBtnText');
+    const recIndicator = document.getElementById('recIndicator');
+    const recTimer = document.getElementById('recTimer');
+    const recordingsList = document.getElementById('recordingsList');
+    const recordingsPanel = document.getElementById('recordingsPanel');
+    const recCountEl = document.getElementById('recCount');
+    const toast = document.getElementById('toast');
+    const sidebar = document.getElementById('sidebar');
+    const playlistSelector = document.getElementById('playlistSelector');
+    const audioBtn = document.getElementById('audioBtn');
+
+    let hls = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let isRecording = false;
+    let recordings = [];
+    let recordingTimerInterval = null;
+    let recordingStartTime = null;
+    
+    // Variabili per audio
+    let isMuted = false;
+    let previousVolume = 1;
+    
+    // Playlist salvate
+    let savedPlaylists = [];
+    let currentChannels = [];
+    let lastLoadedPlaylistIndex = null;
+    let currentActiveChannelElement = null;
+
+    // === LISTA ITALIA COMPLETA (TUTTI I CANALI DAL TUO FILE) ===
+    const ITALY_PLAYLIST = [
+        // National DVB-T
+        { name: "Rai 1", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=2606803&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/CAx7yRm.png", group: "National DVB-T" },
+        { name: "Rai 2", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=308718&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/zA0PTcs.png", group: "National DVB-T" },
+        { name: "Rai 3", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=308709&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/9kuQCIi.png", group: "National DVB-T" },
+        { name: "Rete 4", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-r4/r4-clr.isml/index.m3u8", logo: "https://i.imgur.com/GWx2Fkl.png", group: "National DVB-T" },
+        { name: "Canale 5", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-c5/c5-clr.isml/index.m3u8", logo: "https://i.imgur.com/p6YdiR1.png", group: "National DVB-T" },
+        { name: "Italia 1", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-i1/i1-clr.isml/index.m3u8", logo: "https://i.imgur.com/oCiOxBG.png", group: "National DVB-T" },
+        { name: "La7", url: "https://viamotionhsi.netplus.ch/live/eds/la7/browser-HLS8/la7.m3u8", logo: "https://i.imgur.com/F90mpSa.png", group: "National DVB-T" },
+        { name: "TV8", url: "https://hlslive-web-gcdn-skycdn-it.akamaized.net/TACT/11223/tv8web/master.m3u8?hdnts=st=1764666351~exp=1829466206~acl=/*~hmac=b0e9165b6c55027903ad103c8219f363d8765eb300c0d9a339e9767fc3509556", logo: "https://i.imgur.com/xvoHVOU.png", group: "National DVB-T" },
+        { name: "Nove", url: "https://d31mw7o1gs0dap.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-y5pbi2sq9r609/NOVE_IT.m3u8", logo: "https://i.imgur.com/Hp723RU.png", group: "National DVB-T" },
+        { name: "20 Mediaset", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-lb/lb-clr.isml/index.m3u8", logo: "https://i.imgur.com/It13jwX.png", group: "National DVB-T" },
+        { name: "Rai 4", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=746966&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/XFkZRfv.png", group: "National DVB-T" },
+        { name: "Iris", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-ki/ki-clr.isml/index.m3u8", logo: "https://i.imgur.com/Ixz1BY3.png", group: "National DVB-T" },
+        { name: "Rai 5", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=395276&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/Leu2zTO.png", group: "National DVB-T" },
+        { name: "Rai Movie", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=747002&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/RKpO8CE.png", group: "National DVB-T" },
+        { name: "Rai Premium", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=746992&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/RKI4nFy.png", group: "National DVB-T" },
+        { name: "Cielo", url: "https://hlslive-web-gcdn-skycdn-it.akamaized.net/TACT/11219/cieloweb/master.m3u8?hdnts=st=1764666351~exp=1829466206~acl=/*~hmac=b0e9165b6c55027903ad103c8219f363d8765eb300c0d9a339e9767fc3509556", logo: "https://i.imgur.com/cPluF03.png", group: "National DVB-T" },
+        { name: "27 Twentyseven", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-ts/ts-clr.isml/index.m3u8", logo: "https://i.imgur.com/y2PdPCK.png", group: "National DVB-T" },
+        { name: "TV 2000", url: "https://hls-live-tv2000.akamaized.net/hls/live/2028510/tv2000/master.m3u8", logo: "https://i.imgur.com/x7RaK3a.png", group: "National DVB-T" },
+        { name: "La7 Cinema", url: "https://viamotionhsi.netplus.ch/live/eds/la7d/browser-HLS8/la7d.m3u8", logo: "https://i.imgur.com/khPweok.png", group: "National DVB-T" },
+        { name: "La 5", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-ka/ka-clr.isml/index.m3u8", logo: "https://i.imgur.com/UNyJaho.png", group: "National DVB-T" },
+        { name: "Real Time", url: "https://d3562mgijzx0zq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-kizqtzpvvl3i8/Realtime_IT.m3u8", logo: "https://i.imgur.com/9dcTYg1.png", group: "National DVB-T" },
+        { name: "QVC", url: "https://qrg.akamaized.net/hls/live/2017383/lsqvc1it/master.m3u8", logo: "https://i.imgur.com/Ea7iUX2.png", group: "National DVB-T" },
+        { name: "Food Network", url: "https://dk3okdd5036kz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-o4pw0nc02sthz/Foodnetwork_IT.m3u8", logo: "https://i.imgur.com/i60OYr9.png", group: "National DVB-T" },
+        { name: "Cine34", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-b6/b6-clr.isml/index.m3u8", logo: "https://i.imgur.com/YyldwhI.png", group: "National DVB-T" },
+        { name: "Focus", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-fu/fu-clr.isml/index.m3u8", logo: "https://i.imgur.com/M4smqpF.png", group: "National DVB-T" },
+        { name: "RTL 102.5", url: "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S97044836/tbbP8T1ZRPBL/playlist.m3u8", logo: "https://i.imgur.com/KdissvS.png", group: "National DVB-T" },
+        { name: "Discovery Channel", url: "https://d24aqelmrau4kx.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-l1oas691aj7p2/WBTV_IT.m3u8", logo: "https://i.imgur.com/5IxIFJ0.png", group: "National DVB-T" },
+        { name: "Giallo", url: "https://d9fqo6nfqlv2h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ulukbrgm1n3yb/Giallo_IT.m3u8", logo: "https://i.imgur.com/0PIRwZS.png", group: "National DVB-T" },
+        { name: "Top Crime", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-lt/lt-clr.isml/index.m3u8", logo: "https://i.imgur.com/RFIwv9O.png", group: "National DVB-T" },
+        { name: "Boing", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-kb/kb-clr.isml/index.m3u8", logo: "https://i.imgur.com/niSlrqT.png", group: "National DVB-T" },
+        { name: "K2", url: "https://d1pmpe0hs35ka5.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-39hsskpppgf72/K2_IT.m3u8", logo: "https://i.imgur.com/wlLgSiA.png", group: "National DVB-T" },
+        { name: "Rai Gulp", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=746953&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/lu1DPVb.png", group: "National DVB-T" },
+        { name: "Rai YoYo", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=746899&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/DRSa3ys.png", group: "National DVB-T" },
+        { name: "Frisbee", url: "https://d6m7lubks416z.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-zmbstsedxme9s/Frisbee_IT.m3u8", logo: "https://i.imgur.com/9y1zIAe.png", group: "National DVB-T" },
+        { name: "Cartoonito", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-la/la-clr.isml/index.m3u8", logo: "https://i.imgur.com/oK2DcDJ.png", group: "National DVB-T" },
+        { name: "Super!", url: "https://495c5a85d9074f29acffeaea9e0215eb.msvdn.net/super/super_main/super_main_hbbtv/playlist.m3u8", logo: "https://i.imgur.com/1124YEp.png", group: "National DVB-T" },
+        { name: "Rai News 24", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=1&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/gdzGwB6.png", group: "National DVB-T" },
+        { name: "Italia 2", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-i2/i2-clr.isml/index.m3u8", logo: "https://i.imgur.com/nq48sjO.png", group: "National DVB-T" },
+        { name: "Sky TG24", url: "https://hlslive-web-gcdn-skycdn-it.akamaized.net/TACT/12221/web/master.m3u8?hdnts=st=1764666351~exp=1829466206~acl=/*~hmac=b0e9165b6c55027903ad103c8219f363d8765eb300c0d9a339e9767fc3509556", logo: "https://i.imgur.com/q4d3Dah.png", group: "National DVB-T" },
+        { name: "TGCOM 24", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-kf/kf-clr.isml/index.m3u8", logo: "https://i.imgur.com/xautVD8.png", group: "National DVB-T" },
+        { name: "DMAX", url: "https://d2j2nqgg7bzth.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-02k1gv1j0ufwn/DMAX_IT.m3u8", logo: "https://i.imgur.com/dmEmRX7.png", group: "National DVB-T" },
+        { name: "Rai Storia", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=746990&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/K8y5q8x.png", group: "National DVB-T" },
+        { name: "Mediaset Extra", url: "https://live02-seg.msf.cdn.mediaset.net/live/ch-kq/kq-clr.isml/index.m3u8", logo: "https://i.imgur.com/mM8lopo.png", group: "National DVB-T" },
+        { name: "HGTV", url: "https://d1tidto9vz737l.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-joaw4f4kh2en1/HGTV_IT.m3u8", logo: "https://i.imgur.com/emLNC0U.png", group: "National DVB-T" },
+        { name: "Rai Scuola", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=747011&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/tmtJW6s.png", group: "National DVB-T" },
+        { name: "Rai Sport", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=358025&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/xsGljsb.png", group: "National DVB-T" },
+        { name: "Motor Trend", url: "https://d205m6k582pec4.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-asg5puyzdtnqu/Motortrend_IT.m3u8", logo: "https://i.imgur.com/ipj2H0n.png", group: "National DVB-T" },
+        { name: "Sportitalia Plus", url: "https://sportsitalia-samsungitaly.amagi.tv/playlist.m3u8", logo: "https://i.imgur.com/hu56Ya5.png", group: "National DVB-T" },
+        { name: "Travel TV", url: "https://streaming.softwarecreation.it/GoldTvSat/GoldTvSat/playlist.m3u8", logo: "https://i.imgur.com/aXAUyLN.png", group: "National DVB-T" },
+        { name: "Donna TV", url: "https://5a1178b42cc03.streamlock.net/donnatv/donnatv/playlist.m3u8", logo: "https://i.imgur.com/Aa1Abme.png", group: "National DVB-T" },
+        { name: "SuperTennis", url: "https://live-embed.supertennix.hiway.media/restreamer/supertennix_client/gpu-a-c0-16/restreamer/outgest/aa3673f1-e178-44a9-a947-ef41db73211a/manifest.m3u8", logo: "https://i.imgur.com/GzsPlbX.png", group: "National DVB-T" },
+        { name: "Alma TV", url: "https://streaming.softwarecreation.it/AlmaTv/AlmaTv/playlist.m3u8", logo: "https://i.imgur.com/Y8JiDwN.png", group: "National DVB-T" },
+        { name: "Radio 105 TV", url: "https://live02-seg.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/index.m3u8", logo: "https://i.imgur.com/3NiLKvj.png", group: "National DVB-T" },
+        { name: "R101 TV", url: "https://live02-seg.msr.cdn.mediaset.net/live/ch-er/er-clr.isml/index.m3u8", logo: "https://i.imgur.com/mWeEa9T.png", group: "National DVB-T" },
+        { name: "Deejay TV", url: "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8", logo: "https://i.imgur.com/rlaKH6k.png", group: "National DVB-T" },
+        { name: "RadioItaliaTV", url: "https://radioitaliatv.akamaized.net/hls/live/2093117/RadioitaliaTV/master.m3u8", logo: "https://i.imgur.com/4VCEJuJ.png", group: "National DVB-T" },
+        { name: "Radio KISS KISS TV", url: "https://kk.fluid.stream/KKMulti/smil:KissKissTV.smil/playlist.m3u8", logo: "https://i.imgur.com/UTStxDW.png", group: "National DVB-T" },
+        { name: "Rai Radio 2 Visual", url: "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=5674080&output=7&forceUserAgent=rainet/4.0.5", logo: "https://i.imgur.com/nVBet0h.png", group: "National DVB-T" },
+        { name: "RTL 102.5 Traffic", url: "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S38122967/2lyQRIAAGgRR/playlist.m3u8", logo: "https://i.imgur.com/GH7byqm.jpeg", group: "National DVB-T" },
+        { name: "MAN-GA", url: "https://c65b9e710bde44819015af98e72cd7ab.msvdn.net/live/S93572876/aILSQPYFY3pF/playlist.m3u8", logo: "https://i.imgur.com/8a6WYU2.png", group: "National DVB-T" },
+        { name: "Radio24", url: "https://ilsole24ore-radiovisual.akamaized.net/hls/live/2035302/persidera/master.m3u8", logo: "https://i.imgur.com/NTqrdWW.png", group: "National DVB-T" },
+        { name: "BeJoy.Kids", url: "https://64b16f23efbee.streamlock.net/bejoy/bejoy/playlist.m3u8", logo: "https://i.imgur.com/zuR9Go5.png", group: "National DVB-T" },
+        { name: "Gambero Rosso", url: "https://2018f6355a15442ebb37007fa4f6c064.msvdn.net/live/S7530969/XWerenuxbSdW/playlist.m3u8", logo: "https://i.imgur.com/RApMW5x.png", group: "National DVB-T" },
+        { name: "RadioFreccia", url: "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S3160845/0tuSetc8UFkF/playlist.m3u8", logo: "https://i.imgur.com/J5N9F7Z.png", group: "National DVB-T" },
+        { name: "RDS Social TV", url: "https://stream.rdstv.radio/index.m3u8", logo: "https://i.imgur.com/TY6FhqI.png", group: "National DVB-T" },
+        { name: "Radio ZETA", url: "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S9346184/XEx1LqlYbNic/playlist.m3u8", logo: "https://i.imgur.com/0MgCm1n.png", group: "National DVB-T" },
+        { name: "Radio TV Serie A", url: "https://stream.radioseriea.com/50773f0d0070476a8612d9984c6059d8/index.m3u8", logo: "https://i.imgur.com/NzDeCIx.png", group: "National DVB-T" },
+        
+        // Satellite
+        { name: "Sportitalia SOLOCALCIO", url: "https://di-g7ij0rwh.vo.lswcdn.net/sportitalia/sisolocalcio.smil/playlist.m3u8", logo: "https://i.imgur.com/hu56Ya5.png", group: "Satellite" },
+        { name: "BIKE Channel", url: "https://stream.prod-01.milano.nxmedge.net/argocdn/bikechannel/video.m3u8", logo: "https://i.imgur.com/4IzVSQI.png", group: "Satellite" },
+        { name: "Radio Montecarlo TV", url: "https://live02-seg.msr.cdn.mediaset.net/live/ch-bb/bb-clr.isml/index.m3u8", logo: "https://i.imgur.com/3TMMXmS.png", group: "Satellite" },
+        { name: "Virgin Radio TV", url: "https://live02-seg.msr.cdn.mediaset.net/live/ch-ew/ew-clr.isml/index.m3u8", logo: "https://i.imgur.com/7Im3HI1.png", group: "Satellite" },
+        { name: "Senato TV", url: "https://senato-live.morescreens.com/SENATO_1_001/playlist.m3u8", logo: "https://i.imgur.com/FoQoNZW.png", group: "Satellite" },
+        { name: "Camera dei Deputati", url: "https://video-ar.radioradicale.it/diretta/camera2/playlist.m3u8", logo: "https://i.imgur.com/fqGn1k9.png", group: "Satellite" },
+        { name: "Rai 4K", url: "https://raievent10-elem-live.akamaized.net/hls/live/619189/raievent10/raievent10/playlist.m3u8", logo: "https://i.imgur.com/5gkt9DD.png", group: "Satellite" },
+        { name: "UniNettuno", url: "https://stream6-rai-it.akamaized.net/live/uninettuno/playlist.m3u8", logo: "https://i.imgur.com/BOGMeio.png", group: "Satellite" },
+        
+        // Regional DVB-T (selezione)
+        { name: "111 Tv", url: "https://5db313b643fd8.streamlock.net/111/111/playlist.m3u8", logo: "https://i.imgur.com/4jY8yAI.png", group: "Regional DVB-T" },
+        { name: "12 Tv Parma", url: "https://5929b138b139d.streamlock.net/12TVParma/livestream/playlist.m3u8", logo: "https://i.imgur.com/xnUgx6b.png", group: "Regional DVB-T" },
+        { name: "4 You Tv", url: "https://streamsrv2.nets-sr.com:19360/4youtv/4youtv.m3u8", logo: "https://i.imgur.com/NN0cSbz.png", group: "Regional DVB-T" },
+        { name: "Abc Tv", url: "https://diretta.arcapuglia.it:8080/live/abctv/index.m3u8", logo: "https://i.imgur.com/nVmIeTD.png", group: "Regional DVB-T" },
+        { name: "AB Channel", url: "https://tsw.streamingwebtv24.it:1936/abchanneltv/abchanneltv/playlist.m3u8", logo: "https://i.imgur.com/k8EPLB9.png", group: "Regional DVB-T" },
+        { name: "Alpauno", url: "https://5f22d76e220e1.streamlock.net/alpaunotv/alpaunotv/playlist.m3u8", logo: "https://i.imgur.com/4QKFtUa.png", group: "Regional DVB-T" },
+        { name: "Alto Adige Tv", url: "https://5f204aff97bee.streamlock.net/AltoAdigeTV/livestream/playlist.m3u8", logo: "https://i.imgur.com/S2sCFQi.png", group: "Regional DVB-T" },
+        { name: "Antenna 2 Bergamo", url: "https://58f12ffd2447a.streamlock.net/Antenna2/livestream/playlist.m3u8", logo: "https://i.imgur.com/NfvHIAw.png", group: "Regional DVB-T" },
+        { name: "Antenna 3 Massa", url: "https://media2021.rtvweb.com/antenna3massa/a3/playlist.m3u8", logo: "https://i.imgur.com/CHDU86j.png", group: "Regional DVB-T" },
+        { name: "Antenna 3 Veneto", url: "https://59d7d6f47d7fc.streamlock.net/antennatreveneto/antennatreveneto.stream/playlist.m3u8", logo: "https://i.imgur.com/NiVHLwp.png", group: "Regional DVB-T" },
+        { name: "Antenna Sud", url: "https://live.antennasudwebtv.it:9443/hls/vod.m3u8", logo: "https://i.imgur.com/b8y6ImZ.png", group: "Regional DVB-T" },
+        { name: "Antenna Sud Extra", url: "https://live.antennasudwebtv.it:9443/hls/vod92.m3u8", logo: "https://i.imgur.com/6tBv8VD.png", group: "Regional DVB-T" },
+        { name: "Aristanis SuperTv", url: "https://video2.azotosolutions.com:1936/supertvoristano/supertvoristano/playlist.m3u8", logo: "https://i.imgur.com/v8PlAJO.png", group: "Regional DVB-T" },
+        { name: "Arte Network Orler", url: "https://tsw.streamingwebtv24.it:1936/artenetwork/artenetwork/playlist.m3u8", logo: "https://i.imgur.com/DP5y0Er.png", group: "Regional DVB-T" },
+        { name: "Aurora Arte", url: "https://59d7d6f47d7fc.streamlock.net/auroraarte/auroraarte/playlist.m3u8", logo: "https://i.imgur.com/BoLZ5wG.png", group: "Regional DVB-T" },
+        { name: "Azzurra Tv Vco", url: "https://59d7d6f47d7fc.streamlock.net/azzurratv/azzurratv/playlist.m3u8", logo: "https://i.imgur.com/mSWw8uW.png", group: "Regional DVB-T" },
+        { name: "Basilicata 1 Tv", url: "http://77.68.40.210:8888/hls/basilicata1.m3u8", logo: "https://i.imgur.com/VS6CQ88.png", group: "Regional DVB-T" },
+        { name: "Bergamo Tv", url: "https://db142859fd5541b09de25d6507f1f2d3.msvdn.net/live/S17501676/oIxAsgEEA46M/playlist.m3u8?DVR", logo: "https://i.imgur.com/1doR6Vl.png", group: "Regional DVB-T" },
+        { name: "BOM Channel", url: "https://5f22d76e220e1.streamlock.net/canale6/canale6/playlist.m3u8", logo: "https://i.imgur.com/hISoOK3.png", group: "Regional DVB-T" },
+        { name: "ByoBlu", url: "https://09bd1346f7a44cc9ac230cc1cb22ca4f.msvdn.net/live/S39249178/EnTK3KeeN1Eg/playlist.m3u8", logo: "https://i.imgur.com/1xaHGtU.png", group: "Regional DVB-T" },
+        { name: "Cafe Tv 24", url: "https://srvx1.selftv.video/cafe/live/playlist.m3u8", logo: "https://i.imgur.com/KbcbxFw.png", group: "Regional DVB-T" },
+        { name: "Calabria Uno Tv", url: "https://635320cd397eb.streamlock.net/live/ngrp:calabriaunolive_all/playlist.m3u8", logo: "https://i.imgur.com/2TK1GQ5.png", group: "Regional DVB-T" },
+        { name: "Calabria tv", url: "https://64b16f23efbee.streamlock.net/calabriatv-clone/calabriatv-clone/playlist.m3u8", logo: "https://i.imgur.com/qWirucd.png", group: "Regional DVB-T" },
+        { name: "Canale 10", url: "https://nrvideo1.newradio.it:1936/desxcerbht/desxcerbht/playlist.m3u8", logo: "https://i.imgur.com/KuQcjYV.png", group: "Regional DVB-T" },
+        { name: "Canale 2", url: "https://59d7d6f47d7fc.streamlock.net/canale2/canale2/playlist.m3u8", logo: "https://i.imgur.com/ETqDkS1.png", group: "Regional DVB-T" },
+        { name: "Canale 21", url: "https://0ff9dd7fe9b64bc08a5fc4ed525454c3.msvdn.net/live/S38994111/B7j0ql4XaZtE/playlist.m3u8", logo: "https://i.imgur.com/mU6Cq89.png", group: "Regional DVB-T" },
+        { name: "Canale 21 Extra", url: "https://0ff9dd7fe9b64bc08a5fc4ed525454c3.msvdn.net/live/S42170132/sT6C3LFaD1iA/playlist.m3u8", logo: "https://i.imgur.com/cDAsrBl.png", group: "Regional DVB-T" },
+        { name: "Canale 7", url: "http://wms.shared.streamshow.it:80/canale7/canale7/playlist.m3u8", logo: "https://i.imgur.com/9cuOLCn.png", group: "Regional DVB-T" },
+        { name: "Canale 74 Sicilia", url: "https://stream.cp.ets-sistemi.it:1936/canale74/canale74/playlist.m3u8", logo: "https://i.imgur.com/18JIVgu.png", group: "Regional DVB-T" },
+        { name: "Canale 8 Campania", url: "https://59d7d6f47d7fc.streamlock.net/canale8/canale8/playlist.m3u8", logo: "https://i.imgur.com/ElAS2WC.png", group: "Regional DVB-T" },
+        { name: "Canale Italia", url: "https://ovp-live.akamaized.net/ac115_live/canale1.smil/playlist.m3u8", logo: "https://i.imgur.com/QlwLRyh.png", group: "Regional DVB-T" },
+        { name: "Carina Tv", url: "https://samson.streamerr.co:8081/carinatv/index.m3u8", logo: "https://i.imgur.com/FMGcm6I.jpg", group: "Regional DVB-T" },
+        { name: "Casa Italia 53", url: "https://ovp-live.akamaized.net/ac115_live/canale3.smil/playlist.m3u8", logo: "https://i.imgur.com/O4GQVCk.png", group: "Regional DVB-T" },
+        { name: "Casa Sanremo Tv", url: "https://router.xdevel.com/video0s975911-633/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/WL3SFTs.png", group: "Regional DVB-T" },
+        { name: "Castrovillari Tv", url: "http://msh0062.stream.seeweb.it/live/flv:stream00.sdp/playlist.m3u8", logo: "https://i.imgur.com/V0kjYNG.png", group: "Regional DVB-T" },
+        { name: "Cittaceleste Tv", url: "https://sportitaliaamd.akamaized.net/live/Cittaceleste/hls/A990687F506536598442FC5CD12C97CB78873FBA/index.m3u8", logo: "https://i.imgur.com/9RVriNK.jpeg", group: "Regional DVB-T" },
+        { name: "Company Tv", url: "https://company.fluid.stream/CompanyTV/smil:Company_ALL.smil/playlist.m3u8", logo: "https://i.imgur.com/IbabUDd.png", group: "Regional DVB-T" },
+        { name: "Cremona 1", url: "https://cdn2.streamshow.it/cloud-cremona1/cremona1/playlist.m3u8", logo: "https://i.imgur.com/a5d0F01.jpg", group: "Regional DVB-T" },
+        { name: "Cusano Italia Tv", url: "https://router.xdevel.com/video0s975363-69/stream/playlist.m3u8", logo: "https://i.imgur.com/9F1sVjZ.png", group: "Regional DVB-T" },
+        { name: "Cusano News 7", url: "https://router.xdevel.com/video1s975363-1596/stream/playlist.m3u8", logo: "https://i.imgur.com/L49Ie1Q.png", group: "Regional DVB-T" },
+        { name: "Delta Tv", url: "http://hbbtv-server.zivoli.it:8080/hls/deltatv/deltatv/index.m3u8", logo: "https://i.imgur.com/mfwVXt7.png", group: "Regional DVB-T" },
+        { name: "Deluxe 139", url: "https://59d7d6f47d7fc.streamlock.net/pierstyle/pierstyle/playlist.m3u8", logo: "https://i.imgur.com/kRexw3w.png", group: "Regional DVB-T" },
+        { name: "Di.Tv 80", url: "https://5f22d76e220e1.streamlock.net/ditv80/ditv80/playlist.m3u8", logo: "https://i.imgur.com/kHxTsJw.png", group: "Regional DVB-T" },
+        { name: "Di.Tv 92", url: "https://media2021.rtvweb.com/di_tv_92/live/playlist.m3u8", logo: "https://i.imgur.com/g3SI08H.png", group: "Regional DVB-T" },
+        { name: "Digital Tv7 Benevento", url: "http://streaming.senecadot.com/live/flv:tv7.sdp/playlist.m3u8", logo: "https://i.imgur.com/NaQkklP.png", group: "Regional DVB-T" },
+        { name: "Donna Shopping Tv", url: "https://5f22d76e220e1.streamlock.net/fascinotv/fascinotv/playlist.m3u8", logo: "https://i.imgur.com/oLDvx2T.png", group: "Regional DVB-T" },
+        { name: "E'live Brescia Tv", url: "https://59d7d6f47d7fc.streamlock.net/elivebresciatv/elivebresciatv/playlist.m3u8", logo: "https://i.imgur.com/bZ3B7pi.png", group: "Regional DVB-T" },
+        { name: "Easy Tv Canale 190", url: "https://diretta.arcapuglia.it:8080/live/easytv/index.m3u8", logo: "https://i.imgur.com/LKrVuRR.jpg", group: "Regional DVB-T" },
+        { name: "Entella Tv", url: "https://5f22d76e220e1.streamlock.net:443/EntellaTV/EntellaTV/playlist.m3u8", logo: "https://i.imgur.com/1VPXKrW.png", group: "Regional DVB-T" },
+        { name: "EQUtv", url: "https://ippicabetflag-live.morescreens.com/IPPICA_1_003/304p.m3u8", logo: "https://i.imgur.com/x9Wdz7h.png", group: "Regional DVB-T" },
+        { name: "Equos Tv", url: "https://dacastmmd.mmdlive.lldns.net/dacastmmd/2824fb123d5e44b797232c7abf8195da/playlist.m3u8", logo: "https://i.imgur.com/YwyfNDF.png", group: "Regional DVB-T" },
+        { name: "Espansione Tv", url: "https://srvx1.selftv.video/espansione/smil:live.smil/playlist.m3u8", logo: "https://i.imgur.com/mm9HKpD.png", group: "Regional DVB-T" },
+        { name: "Esperia Tv", url: "https://59d7d6f47d7fc.streamlock.net/esperiatv/esperiatv/playlist.m3u8", logo: "https://patbuweb.com/tivustream/chanlogoz/ita/esperiatv.png", group: "Regional DVB-T" },
+        { name: "Etna Espresso Channel", url: "https://5db313b643fd8.streamlock.net/Etnachannelponte/Etnachannelponte/playlist.m3u8", logo: "https://i.imgur.com/hMUxytZ.png", group: "Regional DVB-T" },
+        { name: "è Tv Marche", url: "https://live.ipstream.it/etvmarche/etvmarche.stream/playlist.m3u8", logo: "https://i.imgur.com/vxgbFnR.png", group: "Regional DVB-T" },
+        { name: "è Tv Rete7", url: "https://live.ipstream.it/etv/etv.stream/playlist.m3u8", logo: "https://i.imgur.com/FXFzJhM.png", group: "Regional DVB-T" },
+        { name: "è Tv Umbria", url: "https://live.ipstream.it/etvumbria/etvumbria.stream/playlist.m3u8", logo: "https://i.imgur.com/DASRCe2.png", group: "Regional DVB-T" },
+        { name: "Euro Tv", url: "https://5f22d76e220e1.streamlock.net/eurotv/eurotv/playlist.m3u8", logo: "https://i.imgur.com/HCl5Zbu.png", group: "Regional DVB-T" },
+        { name: "Extra Tv", url: "https://rst2.saiuzwebnetwork.it:8081/extratvlive/index.m3u8", logo: "https://i.imgur.com/KCBurST.png", group: "Regional DVB-T" },
+        { name: "FM Tv Marche", url: "https://bbtv.intvstream.net:3988/hybrid/play.m3u8", logo: "https://i.imgur.com/yY01NhL.jpg", group: "Regional DVB-T" },
+        { name: "Fano Tv", url: "https://diretta.arcapuglia.it:8080/live/fanotv/index.m3u8", logo: "https://i.imgur.com/orqEzJ6.png", group: "Regional DVB-T" },
+        { name: "Fascino Tv", url: "https://5f22d76e220e1.streamlock.net/canale157/canale157/playlist.m3u8", logo: "https://i.imgur.com/4XYYY5B.png", group: "Regional DVB-T" },
+        { name: "GRP Televisione", url: "https://webstream.multistream.it/memfs/a3195c96-f884-4c74-924f-2648814fc0b5.m3u8", logo: "https://i.imgur.com/1zNPpVE.png", group: "Regional DVB-T" },
+        { name: "GarganoTv", url: "https://cdn80-ger.azotosolutions.com:8443/cdnedge3/smil:live3.smil/playlist.m3u8", logo: "https://i.imgur.com/OlJohKK.png", group: "Regional DVB-T" },
+        { name: "Giornale Radio Tv", url: "https://5f204aff97bee.streamlock.net/GR_tv/livestream/playlist.m3u8", logo: "https://i.imgur.com/TMtvCLL.jpg", group: "Regional DVB-T" },
+        { name: "Giovanni Paolo Tv", url: "https://media2021.rtvweb.com/giovannipaolotv/web/chunklist_w663456797.m3u8", logo: "https://i.imgur.com/GH5eJE6.png", group: "Regional DVB-T" },
+        { name: "Globus Television", url: "https://cdn.cubws.com/live/globus.m3u8", logo: "https://i.imgur.com/yUTYqCv.png", group: "Regional DVB-T" },
+        { name: "Gold Tv", url: "https://streaming.softwarecreation.it/GoldTv/GoldTv/playlist.m3u8", logo: "https://i.imgur.com/3rVi4kD.png", group: "Regional DVB-T" },
+        { name: "GO-TV Channel", url: "https://6zklxkbbdw9b-hls-live.mariatvcdn.it/msmotor/2f759512164fc6fe4acbed6a5648993a.sdp/playlist.m3u8", logo: "https://i.imgur.com/xgjrAAn.png", group: "Regional DVB-T" },
+        { name: "GS Channel", url: "https://rst.saiuzwebnetwork.it:8081/retereggio/index.m3u8", logo: "https://i.imgur.com/ExfxCRv.png", group: "Regional DVB-T" },
+        { name: "Icaro Tv Rimini", url: "https://59d7d6f47d7fc.streamlock.net/icarotv/icarotv/playlist.m3u8", logo: "https://i.imgur.com/z05VSSN.png", group: "Regional DVB-T" },
+        { name: "Idea Plus", url: "https://rst.saiuzwebnetwork.it:19360/teleidea/teleidea.m3u8", logo: "https://i.imgur.com/2edmxYF.png", group: "Regional DVB-T" },
+        { name: "il61", url: "https://5a1178b42cc03.streamlock.net/travel/travel/playlist.m3u8", logo: "https://i.imgur.com/1rUZsBv.png", group: "Regional DVB-T" },
+        { name: "Italia 2 Tv", url: "https://59d7d6f47d7fc.streamlock.net/italia2/italia2/playlist.m3u8", logo: "https://i.imgur.com/ISbxfY0.png", group: "Regional DVB-T" },
+        { name: "Italia 7", url: "https://streaming.softwarecreation.it/Italia7/Italia7/playlist.m3u8", logo: "https://i.imgur.com/YBXkY4w.png", group: "Regional DVB-T" },
+        { name: "Italia 8 Prestige", url: "https://5f22d76e220e1.streamlock.net/italia8prestige/italia8prestige/playlist.m3u8", logo: "https://i.imgur.com/uDxWI4a.png", group: "Regional DVB-T" },
+        { name: "Italia Channel", url: "https://stream1.aswifi.it/italiachannel/stream/index.m3u8", logo: "https://i.imgur.com/zuuKXGv.png", group: "Regional DVB-T" },
+        { name: "Iunior Tv", url: "https://5f22d76e220e1.streamlock.net/iuniortv/iuniortv/playlist.m3u8", logo: "https://i.imgur.com/9jeNlLE.png", group: "Regional DVB-T" },
+        { name: "L'Altro Corriere Tv", url: "https://stream.cp.ets-sistemi.it:1936/laltrocorriere-tv/laltrocorriere-tv/playlist.m3u8", logo: "https://i.imgur.com/dgj79J3.png", group: "Regional DVB-T" },
+        { name: "La Nuova Tv", url: "https://5dcabf026b188.streamlock.net/lanuovatvbas/livestream/playlist.m3u8", logo: "https://i.imgur.com/wg8FhdN.png", group: "Regional DVB-T" },
+        { name: "La Tenda Tv", url: "https://2-fss-1.streamhoster.com/pl_148/206202-2980948-1/playlist.m3u8", logo: "https://i.imgur.com/XnBp0hT.png", group: "Regional DVB-T" },
+        { name: "La tr3 Marsala", url: "https://tsw.streamingwebtv24.it:1936/eslife1/eslife1/playlist.m3u8", logo: "https://i.imgur.com/XlxpfEx.png", group: "Regional DVB-T" },
+        { name: "LaC News 24", url: "https://f5842579ff984c1c98d63b8d789673eb.msvdn.net/live/S27391994/HVvPMzy/playlist.m3u8", logo: "https://i.imgur.com/02vCECa.png", group: "Regional DVB-T" },
+        { name: "LaC Tv Calabria", url: "https://f5842579ff984c1c98d63b8d789673eb.msvdn.net/live/S47282891/JWjL3xqPf4bX/playlist.m3u8", logo: "https://i.imgur.com/2Ef6crS.png", group: "Regional DVB-T" },
+        { name: "Lab Tv", url: "https://customer-yzibk50951uq418a.cloudflarestream.com/a58893dee4b9922a75e41b4ec4243f84/manifest/video.m3u8", logo: "https://i.imgur.com/OpRS6Fl.png", group: "Regional DVB-T" },
+        { name: "Lazio Tv", url: "https://streaming.softwarecreation.it/LazioTv/LazioTv/playlist.m3u8", logo: "https://i.imgur.com/DAj5Uwb.png", group: "Regional DVB-T" },
+        { name: "Le Cronache Lucane Tv", url: "http://stucazz.com:8888/hls/cronache.m3u8", logo: "https://i.imgur.com/EBY3IZL.jpg", group: "Regional DVB-T" },
+        { name: "Lira Tv", url: "https://a928c0678d284da5b383f29ecc5dfeec.msvdn.net/live/S57315730/8kTBWibNteJA/playlist.m3u8", logo: "https://i.imgur.com/S0ReVEo.png", group: "Regional DVB-T" },
+        { name: "Lombardia Tv", url: "https://5db313b643fd8.streamlock.net/lmbiatv/lmbiatv/playlist.m3u8", logo: "https://i.imgur.com/aksVy9f.jpg", group: "Regional DVB-T" },
+        { name: "Love in Venice", url: "http://59d7d6f47d7fc.streamlock.net/loveinvenice/loveinvenice/playlist.m3u8", logo: "https://i.imgur.com/lLBzzce.png", group: "Regional DVB-T" },
+        { name: "Lucania Tv", url: "https://cdn15.streamshow.it/cloud-lucaniatv/lucaniatv/playlist.m3u8", logo: "https://i.imgur.com/wuUNVR5.png", group: "Regional DVB-T" },
+        { name: "Made in BO", url: "https://srvx1.selftv.video/dmchannel/live/playlist.m3u8", logo: "https://i.imgur.com/WFnrMS0.png", group: "Regional DVB-T" },
+        { name: "Maria Vision", url: "https://1601580044.rsc.cdn77.org/live/_jcn_/amls:CHANNEL_2/playlist.m3u8", logo: "https://i.imgur.com/fdx5YXi.png", group: "Regional DVB-T" },
+        { name: "Matrix Tv", url: "https://5f22d76e220e1.streamlock.net/GrandeItalia/GrandeItalia/playlist.m3u8", logo: "https://i.imgur.com/m1HeXrn.png", group: "Regional DVB-T" },
+        { name: "Mediterranea Tv", url: "https://stream1.aswifi.it/mediterraneatv/live/index.m3u8", logo: "https://i.imgur.com/GUTOqRt.png", group: "Regional DVB-T" },
+        { name: "Medjugorje Italia Tv", url: "https://5f22d76e220e1.streamlock.net/medjugorjeitaliatv/medjugorjeitaliatv/playlist.m3u8", logo: "https://i.imgur.com/hkZScXf.png", group: "Regional DVB-T" },
+        { name: "Medjugorje Tv Puglia", url: "https://diretta.arcapuglia.it:8080/live/medjugorietv/index.m3u8", logo: "https://i.imgur.com/IWBeddh.png", group: "Regional DVB-T" },
+        { name: "Minformo Tv", url: "https://5db313b643fd8.streamlock.net:443/MinformoTV/MinformoTV/playlist.m3u8", logo: "https://i.imgur.com/VJNtnZM.jpg", group: "Regional DVB-T" },
+        { name: "Motori Tv", url: "https://5f22d76e220e1.streamlock.net/servizio01/servizio01/playlist.m3u8", logo: "https://i.imgur.com/NWXQKbl.png", group: "Regional DVB-T" },
+        { name: "NTI Canale 271", url: "https://www.ntimedia.it/video/S0B/S0B_master.m3u8", logo: "https://i.imgur.com/zlmcUe0.jpg", group: "Regional DVB-T" },
+        { name: "News24 City", url: "https://dc3.telesveva.com:4433/news24.mp4", logo: "https://i.imgur.com/dak9AtV.png", group: "Regional DVB-T" },
+        { name: "Nuova TV Nazionale", url: "https://stream4.xdevel.com/video0s975955-782/stream/playlist.m3u8", logo: "https://i.imgur.com/QWlRuXg.png", group: "Regional DVB-T" },
+        { name: "Nuova Tv 1", url: "https://nuovatv.net:8443/tv/stream.m3u8", logo: "https://i.imgur.com/1yqTZhR.png", group: "Regional DVB-T" },
+        { name: "Nuova Tv 2", url: "https://nuovatv.net:8443/tv2/stream.m3u8", logo: "https://i.imgur.com/0vauyV3.png", group: "Regional DVB-T" },
+        { name: "Nuvola Tv", url: "https://stream.nuvola.tv:8181/memfs/4aaa6328-1879-4ebf-b18a-498146d0c61c.m3u8", logo: "https://i.imgur.com/EDGez2x.png", group: "Regional DVB-T" },
+        { name: "Odeon 24", url: "https://streaming.softwarecreation.it/Odeon/Odeon/manifest.m3u8", logo: "https://i.imgur.com/M1tVBuH.png", group: "Regional DVB-T" },
+        { name: "Ofanto Tv", url: "https://videostream.isgm.it:3276/live/tvofantolive.m3u8", logo: "https://i.imgur.com/UCgATWn.png", group: "Regional DVB-T" },
+        { name: "Onda Novara Tv", url: "https://585b674743bbb.streamlock.net/9006/9006/playlist.m3u8", logo: "https://i.imgur.com/Qoh9CFy.png", group: "Regional DVB-T" },
+        { name: "Onda Tv Sicilia", url: "https://5926fc9c7c5b2.streamlock.net/9040/9040/playlist.m3u8", logo: "https://i.imgur.com/0c5Y6lr.png", group: "Regional DVB-T" },
+        { name: "Onda Web Radio", url: "http://178.33.224.197:1935/ondaradioweb/ondaradioweb/playlist.m3u8", logo: "https://i.imgur.com/3hTvrC8.jpg", group: "Regional DVB-T" },
+        { name: "Ora Tv", url: "https://5db313b643fd8.streamlock.net/OraTv/OraTv/playlist.m3u8", logo: "https://i.imgur.com/clWVrvE.png", group: "Regional DVB-T" },
+        { name: "Orler Tv", url: "https://w1.mediastreaming.it/orlertv/livestream/playlist.m3u8", logo: "https://i.imgur.com/dBkxD8e.png", group: "Regional DVB-T" },
+        { name: "Otto Channel", url: "https://ottop-live-meride.akamaized.net/hls/live/2039996/ch1/playlist.m3u8", logo: "https://i.imgur.com/HRonD2N.png", group: "Regional DVB-T" },
+        { name: "Padre Pio Tv", url: "https://600f07e114306.streamlock.net/PadrePioTV/livestream/playlist.m3u8", logo: "https://i.imgur.com/7ajxEPH.png", group: "Regional DVB-T" },
+        { name: "Paradise Tv", url: "https://tsw.streamingwebtv24.it:1936/paradisetv/paradisetv/playlist.m3u8", logo: "https://i.imgur.com/okIBfIb.jpg", group: "Regional DVB-T" },
+        { name: "Parole di Vita", url: "https://64b16f23efbee.streamlock.net/paroledivita/paroledivita/playlist.m3u8", logo: "https://i.imgur.com/M9mIiZD.png", group: "Regional DVB-T" },
+        { name: "Partenope Tv", url: "https://diretta.arcapuglia.it:8080/live/partenope/index.m3u8", logo: "https://i.imgur.com/FtuWkj1.png", group: "Regional DVB-T" },
+        { name: "Peer Tv Alto Adige", url: "https://iptv.peer.biz/live/peertv-it.m3u8", logo: "https://www.peer.biz/peertv-iptv/peer-tv-alto-adige.png", group: "Regional DVB-T" },
+        { name: "Peer TV Südtirol", url: "https://iptv.peer.biz/live/peertv.m3u8", logo: "https://www.peer.biz/peertv-iptv/peer-tv-suedtirol.png", group: "Regional DVB-T" },
+        { name: "Pop Tv", url: "https://stream1.aswifi.it/poptelevision/live/index.m3u8", logo: "https://i.imgur.com/TeolCu9.png", group: "Regional DVB-T" },
+        { name: "Prima Tv Napoli", url: "https://57068da1deb21.streamlock.net/primatvnapoli/primatvnapoli/playlist.m3u8", logo: "https://i.imgur.com/yPuQeEy.jpg", group: "Regional DVB-T" },
+        { name: "Prima Tv Sicilia", url: "https://5db313b643fd8.streamlock.net/PrimaTV/PrimaTV/playlist.m3u8", logo: "https://i.imgur.com/br45JER.png", group: "Regional DVB-T" },
+        { name: "PrimaFREE", url: "https://5f22d76e220e1.streamlock.net/primafree/primafree/playlist.m3u8", logo: "https://i.imgur.com/YrSSmOL.png", group: "Regional DVB-T" },
+        { name: "Primantenna Torino", url: "https://5f22d76e220e1.streamlock.net/primantenna14/primantenna14/playlist.m3u8", logo: "https://i.imgur.com/sqEcPFs.gif", group: "Regional DVB-T" },
+        { name: "Primocanale", url: "https://msh0203.stream.seeweb.it/live/flv:stream2.sdp/playlist.m3u8", logo: "https://i.imgur.com/xWF1A1U.png", group: "Regional DVB-T" },
+        { name: "Promovideo Tv", url: "https://media2021.rtvweb.com/promovideo_web/promovideo/playlist.m3u8", logo: "https://i.imgur.com/MwK9HVG.png", group: "Regional DVB-T" },
+        { name: "Quarto Canale Flegreo", url: "http://live.mariatvcdn.com/dialogos/171e41deedf405f10c7dd6311387fb43.sdp/playlist.m3u8", logo: "https://i.imgur.com/8RKY3Du.png", group: "Regional DVB-T" },
+        { name: "Radio 3M InBlu", url: "https://stream.mariatvcdn.com/telemistrettaradio/900bfcc0f9012ea272584fd5ff5281b8.sdp/playlist.m3u8", logo: "https://i.imgur.com/d7O7Uqa.png", group: "Regional DVB-T" },
+        { name: "Radio 51 Tv", url: "https://59d7d6f47d7fc.streamlock.net/canale51/canale51/chunklist_w1193883900.m3u8", logo: "https://uaznao.com/wp-content/uploads/2023/03/radio51.png", group: "Regional DVB-T" },
+        { name: "Radio Birikina Tv", url: "https://tvd-bk.fluid.stream/RadioBirikinaTV/livestream/chunklist_w84398277.m3u8", logo: "https://uaznao.com/wp-content/uploads/2023/03/radiobirikina.png", group: "Regional DVB-T" },
+        { name: "Radio Bruno Tv", url: "https://router.xdevel.com/video0s975758-473/stream/playlist.m3u8", logo: "https://i.imgur.com/y4vKE83.png", group: "Regional DVB-T" },
+        { name: "Radio Ibiza", url: "https://str48.fluid.stream/RadioIbizaTV/livestream/playlist.m3u8", logo: "https://i.imgur.com/uu0DHY5.png", group: "Regional DVB-T" },
+        { name: "Radio Immagine Tv", url: "https://media.velcom.it:8081/RadioImmagineTV/index.fmp4.m3u8", logo: "https://i.imgur.com/iQlXRAB.png", group: "Regional DVB-T" },
+        { name: "Radio Italia Cina Tv", url: "https://585b674743bbb.streamlock.net/9054/9054/playlist.m3u8", logo: "https://i.imgur.com/QGkyrO3.png", group: "Regional DVB-T" },
+        { name: "Radio Libertà", url: "https://router.xdevel.com/video0s975360-67/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/HRvPlf5.png", group: "Regional DVB-T" },
+        { name: "Radio m2o Tv", url: "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S62628868/uhdWBlkC1AoO/playlist.m3u8", logo: "https://i.imgur.com/wl30UFj.png", group: "Regional DVB-T" },
+        { name: "Radio Monte Kronio Tv", url: "https://648026e87a75e.streamlock.net/rmktv/rmktv/playlist.m3u8", logo: "https://i.imgur.com/t0I2Shi.jpg", group: "Regional DVB-T" },
+        { name: "Radio Norba Tv", url: "https://router.xdevel.com/video0s975885-462/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/qftBPM9.png", group: "Regional DVB-T" },
+        { name: "Radio Piter Pan Tv", url: "https://tvd-piter.fluid.stream/RadioPiterpanTV/livestream/chunklist_w1866496033.m3u8", logo: "https://uaznao.com/wp-content/uploads/2023/03/radiopiterpan.png", group: "Regional DVB-T" },
+        { name: "Radio Radio Tv", url: "https://200912.global.ssl.fastly.net/646b335e2291a2022444bb7c/live_22f84390fe1411ed919df3da85a483cc/rewind-14400.m3u8", logo: "https://i.imgur.com/iKuRg2b.png", group: "Regional DVB-T" },
+        { name: "Radio Radiosa Tv", url: "https://stream7.zivoli.it/radiosatv/radiosatv/playlist.m3u8", logo: "https://i.imgur.com/8kqyxvz.png", group: "Regional DVB-T" },
+        { name: "Radio Roma", url: "https://585b674743bbb.streamlock.net/9044/9044/playlist.m3u8", logo: "https://i.imgur.com/RKvfStm.png", group: "Regional DVB-T" },
+        { name: "Radio Roma Television", url: "https://5926fc9c7c5b2.streamlock.net/rtfeunawfu/rtfeunawfu/playlist.m3u8", logo: "https://i.imgur.com/RKvfStm.png", group: "Regional DVB-T" },
+        { name: "Ran Friul", url: "https://5f22d76e220e1.streamlock.net/RanFriul/RanFriul/playlist.m3u8", logo: "https://i.imgur.com/Qs5eQPM.png", group: "Regional DVB-T" },
+        { name: "RDE Tv", url: "https://rst2.saiuzwebnetwork.it:8081/rdetrieste/index.m3u8", logo: "https://i.imgur.com/NiwPlrr.png", group: "Regional DVB-T" },
+        { name: "Reggio Tv", url: "https://cdn10.streamshow.it/cloud-reggiotv/reggiotv/playlist.m3u8", logo: "https://i.imgur.com/merrg2C.png", group: "Regional DVB-T" },
+        { name: "Rei Tv", url: "https://5f22d76e220e1.streamlock.net/reitv/reitv/playlist.m3u8", logo: "https://i.imgur.com/YNRWFOo.png", group: "Regional DVB-T" },
+        { name: "Rete 55", url: "https://live1.giocabet.tv/stream/6/index.m3u8", logo: "https://i.imgur.com/EsZn2cj.png", group: "Regional DVB-T" },
+        { name: "Rete 8 Vga", url: "https://604e46ac2bdee.streamlock.net:1936/rete8_1/rete8_1/playlist.m3u8", logo: "https://i.imgur.com/3wF2AJX.jpg", group: "Regional DVB-T" },
+        { name: "Rete 8", url: "https://64b16f23efbee.streamlock.net/rete8/rete8/playlist.m3u8", logo: "https://i.imgur.com/bGsjPRh.png", group: "Regional DVB-T" },
+        { name: "Rete 8 Sport", url: "https://64b16f23efbee.streamlock.net/rete8sport/rete8sport/playlist.m3u8", logo: "https://i.imgur.com/uUAjWlF.png", group: "Regional DVB-T" },
+        { name: "Rete Biella Tv", url: "https://sb.top-ix.org/retebiella/streaming/playlist.m3u8", logo: "https://i.imgur.com/e2ryHx7.png", group: "Regional DVB-T" },
+        { name: "Rete Mia", url: "https://5db313b643fd8.streamlock.net/rete/rete/playlist.m3u8", logo: "https://i.imgur.com/kCJ621Q.png", group: "Regional DVB-T" },
+        { name: "Rete Oro Tv", url: "https://5926fc9c7c5b2.streamlock.net/9094/9094/playlist.m3u8", logo: "https://i.imgur.com/OCxGtwA.png", group: "Regional DVB-T" },
+        { name: "Rete Sole", url: "https://5926fc9c7c5b2.streamlock.net/9332/9332/playlist.m3u8", logo: "https://i.imgur.com/u0ezKgE.png", group: "Regional DVB-T" },
+        { name: "Rete Tv Italia", url: "https://57068da1deb21.streamlock.net/retetvitalia/retetvitalia/playlist.m3u8", logo: "https://i.imgur.com/lXGWoV9.png", group: "Regional DVB-T" },
+        { name: "Rete Veneta", url: "http://wms.shared.streamshow.it/reteveneta/reteveneta/playlist.m3u8", logo: "https://i.imgur.com/cInhQFp.png", group: "Regional DVB-T" },
+        { name: "Roma Tv 82", url: "https://streaming.softwarecreation.it/RomaCH71/RomaCH71/playlist.m3u8", logo: "https://i.imgur.com/C3UnlFF.png", group: "Regional DVB-T" },
+        { name: "Rossini Tv", url: "https://stream.rossinitv.it/memfs/3bca4ad7-adfc-4610-ac0e-e826743ddc57.m3u8", logo: "https://i.imgur.com/K0Em0nx.jpg", group: "Regional DVB-T" },
+        { name: "RTC Quarta Rete", url: "https://msh0232.stream.seeweb.it/live/stream00.sdp/playlist.m3u8", logo: "https://i.imgur.com/rFGA6qL.png", group: "Regional DVB-T" },
+        { name: "RTC Telecalabria", url: "https://w1.mediastreaming.it/calabriachannel/livestream/playlist.m3u8", logo: "https://i.imgur.com/tTYLcuh.jpg", group: "Regional DVB-T" },
+        { name: "RTI Calabria", url: "https://stream.ets-sistemi.it:8081/rticalabria/index.m3u8", logo: "https://i.imgur.com/hVzEvmo.jpg", group: "Regional DVB-T" },
+        { name: "RTL 102.5 + Plus", url: "https://streamcdng14-dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S82929343/cAcsSu4Wecc5/chunklist_b5256000.m3u8", logo: "https://i.imgur.com/mPqDtCO.png", group: "Regional DVB-T" },
+        { name: "RTM Manduria", url: "https://5f22d76e220e1.streamlock.net/rtm/rtm/playlist.m3u8", logo: "https://i.imgur.com/WwzU0EP.png", group: "Regional DVB-T" },
+        { name: "RTR99 Tv", url: "https://5e73cf528f404.streamlock.net/RTR99TV/livestream/playlist.m3u8", logo: "https://i.imgur.com/mkO95pD.png", group: "Regional DVB-T" },
+        { name: "Rtp Tv", url: "http://flash2.xdevel.com/rtptv/rtptv/playlist.m3u8", logo: "https://i.imgur.com/I1hYI0C.png", group: "Regional DVB-T" },
+        { name: "Rttr", url: "https://5f204aff97bee.streamlock.net/RTTRlive/livestream/playlist.m3u8", logo: "https://i.imgur.com/z7xMArA.png", group: "Regional DVB-T" },
+        { name: "Rtv 38 Toscana", url: "https://845d8509d2cb4f249dd0b2ae5755b6c2.msvdn.net/rtv38/rtv38_live_main/mainabr/playlist_dvr.m3u8", logo: "https://i.imgur.com/xqlhJqK.png", group: "Regional DVB-T" },
+        { name: "SL 48 Tv", url: "http://media.velcom.it:1935/sl48/sl48/playlist.m3u8", logo: "https://i.imgur.com/b58oouu.jpg", group: "Regional DVB-T" },
+        { name: "ST Europe Channel", url: "https://5f22d76e220e1.streamlock.net/steuropetv/steuropetv/playlist.m3u8", logo: "https://i.imgur.com/QpPgSfr.png", group: "Regional DVB-T" },
+        { name: "Sardegna 1", url: "https://7e1cc2454f2242afabe05cc0a2f483cd.msvdn.net/live/S30721796/ZS3Xu8mn5f0J/playlist.m3u8", logo: "https://i.imgur.com/YNEW2h2.png", group: "Regional DVB-T" },
+        { name: "Set Tv Cilento", url: "https://stream1.aswifi.it/settv/live/index.m3u8", logo: "https://i.imgur.com/qN5D1jD.png", group: "Regional DVB-T" },
+        { name: "Sesta Rete", url: "https://stream10.xdevel.com/video0s977089-1792/stream/playlist.m3u8", logo: "https://i.imgur.com/0B0S2gI.png", group: "Regional DVB-T" },
+        { name: "Sicilia 24 Tv", url: "https://5f22d76e220e1.streamlock.net/sicilia24/sicilia24/playlist.m3u8", logo: "https://i.imgur.com/GhQX36O.png", group: "Regional DVB-T" },
+        { name: "Sicilia Tv", url: "https://stream9.xdevel.com/video0s976441-1226/stream/playlist.m3u8", logo: "https://i.imgur.com/I5FoThW.png", group: "Regional DVB-T" },
+        { name: "Sienatv", url: "https://router.xdevel.com/video0s976727-1441/stream/playlist.m3u8", logo: "https://i.imgur.com/gcysky4.png", group: "Regional DVB-T" },
+        { name: "Sophia Tv", url: "https://bild-und-ton.stream/sophiatv-it/smil:sophia-tv-it.smil/playlist.m3u8", logo: "https://i.imgur.com/fiLNK3b.jpg", group: "Regional DVB-T" },
+        { name: "Stiletv", url: "https://proxy.media.convergenze.it/stiletv/streams/oQOFd7JglHjO1631525551097.m3u8", logo: "https://i.imgur.com/ZP3cJi7.png", group: "Regional DVB-T" },
+        { name: "Super J Tv", url: "https://59d39900ebfb8.streamlock.net/SuperJtv/SuperJtv/playlist.m3u8", logo: "https://i.imgur.com/5oy5Nuu.png", group: "Regional DVB-T" },
+        { name: "Super Six", url: "https://5db313b643fd8.streamlock.net/SUPERSIXLombardia/SUPERSIXLombardia/playlist.m3u8", logo: "https://i.imgur.com/kHSuyub.png", group: "Regional DVB-T" },
+        { name: "Supertv", url: "http://wms.shared.streamshow.it:1935/supertv/supertv/live.m3u8", logo: "https://i.imgur.com/7gUZcEh.png", group: "Regional DVB-T" },
+        { name: "T9", url: "https://streaming.softwarecreation.it/tnove/tnove/playlist.m3u8", logo: "https://i.imgur.com/XzL05Py.png", group: "Regional DVB-T" },
+        { name: "TRC Santeramo", url: "https://stream7.livinlive.it/trc/trc/playlist.m3u8", logo: "https://i.imgur.com/VbYdS8P.jpg", group: "Regional DVB-T" },
+        { name: "TRL Tele Radio Leo", url: "https://5db313b643fd8.streamlock.net/TRL/TRL/playlist.m3u8", logo: "https://i.imgur.com/qAagkJT.png", group: "Regional DVB-T" },
+        { name: "TSD Tv Arezzo", url: "https://stream.mariatvcdn.com/tsd/7c59373bfdb38201b9215ff86f0ce6af.sdp/playlist.m3u8", logo: "https://i.imgur.com/WQ8eQXc.png", group: "Regional DVB-T" },
+        { name: "TVL Pistoia", url: "http://live.mariatvcdn.com/mariatvcdn/70564e1c6884c007c76f0c128d679eed.sdp/mono.m3u8", logo: "https://i.imgur.com/07geF0L.png", group: "Regional DVB-T" },
+        { name: "Tcf Tv", url: "https://stream10.xdevel.com/video1s977294-1864/stream/playlist.m3u8", logo: "https://i.imgur.com/fiylFs2.jpg", group: "Regional DVB-T" },
+        { name: "Tci", url: "https://tbn-jw.cdn.vustreams.com/live/tci/live.isml/2b7d53c5-b504-4d26-b25f-a70deb8d0faf.m3u8", logo: "https://i.imgur.com/lCZTaKs.jpg", group: "Regional DVB-T" },
+        { name: "Teatro Tv", url: "https://m.iostream.it/hls/teatrotv/teatrotv.m3u8", logo: "https://i.imgur.com/UsvffQL.png", group: "Regional DVB-T" },
+        { name: "Tele A", url: "https://lostream.it/hls/telea/video.m3u8", logo: "https://i.imgur.com/l7Za9KH.jpg", group: "Regional DVB-T" },
+        { name: "Tele Abruzzo Tv", url: "http://uk4.streamingpulse.com:1935/TeleabruzzoTV/TeleabruzzoTV/playlist.m3u8", logo: "https://i.imgur.com/koB8J4b.jpg", group: "Regional DVB-T" },
+        { name: "Tele Acras", url: "https://5db313b643fd8.streamlock.net/teleacras/teleacras/playlist.m3u8", logo: "https://i.imgur.com/90Lsv8q.png", group: "Regional DVB-T" },
+        { name: "Tele Arena", url: "https://5e73cf528f404.streamlock.net/TeleArena/TeleArena.stream/playlist.m3u8", logo: "https://i.imgur.com/9hsoWMO.png", group: "Regional DVB-T" },
+        { name: "Tele Bari", url: "https://w1.mediastreaming.it/telebari/livestream/playlist.m3u8", logo: "https://i.imgur.com/HYSz4rx.png", group: "Regional DVB-T" },
+        { name: "Tele Belluno", url: "https://live.mariatvcdn.com/telebelluno/a3b80388da9801906adf885282e73bc3.sdp/mono.m3u8", logo: "https://i.imgur.com/YiM2Z7E.png", group: "Regional DVB-T" },
+        { name: "Tele Boario", url: "https://stream7.xdevel.com/video0s976425-1244/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/LlLD3L6.png", group: "Regional DVB-T" },
+        { name: "Tele Bruzzano", url: "https://playerssl.telemia.tv/fileadmin/hls/Telebruzzano/telebruzzano_mediachunks.m3u8", logo: "https://i.imgur.com/7TWbCDt.jpg", group: "Regional DVB-T" },
+        { name: "Tele Chiara", url: "http://fms.tvavicenza.it:1935/telechiara/diretta/playlist.m3u8", logo: "https://i.imgur.com/Q5XpnXR.png", group: "Regional DVB-T" },
+        { name: "Telecolor", url: "https://1aadf145546f475282c5b4e658c0ac4b.msvdn.net/live/324149/hlbAWtl/playlist.m3u8", logo: "https://i.imgur.com/urUG78J.png", group: "Regional DVB-T" },
+        { name: "Tele Cupole", url: "https://nrvideo1.newradio.it/euhsbdamnx/euhsbdamnx/playlist.m3u8", logo: "https://i.imgur.com/ZmUI9zb.png", group: "Regional DVB-T" },
+        { name: "Tele Estense", url: "https://5e73cf528f404.streamlock.net/TeleEstense/livestream/playlist.m3u8", logo: "https://i.imgur.com/X7i7DWo.png", group: "Regional DVB-T" },
+        { name: "Tele Foggia", url: "https://59d7d6f47d7fc.streamlock.net/telefoggia/telefoggia/playlist.m3u8", logo: "https://i.imgur.com/M7tqBu9.jpg", group: "Regional DVB-T" },
+        { name: "Tele Friuli", url: "https://5757bf2aa08e42248fb9b9d620f5d900.msvdn.net/live/S11646715/pE3ax0lT0rBd/playlist.m3u8", logo: "https://i.imgur.com/AoQxZxD.png", group: "Regional DVB-T" },
+        { name: "Tele Ischia", url: "https://rst.saiuzwebnetwork.it:8081/teleischia/index.m3u8", logo: "https://i.imgur.com/vihHVQn.jpg", group: "Regional DVB-T" },
+        { name: "Tele Jonio", url: "http://59d7d6f47d7fc.streamlock.net/telejonio/telejonio/playlist.m3u8", logo: "https://i.imgur.com/qJeDV8R.png", group: "Regional DVB-T" },
+        { name: "Tele Liberta' HD", url: "https://streaming.liberta.it/hls/liberta.m3u8", logo: "https://i.imgur.com/XzAB5k7.jpg", group: "Regional DVB-T" },
+        { name: "Tele Liguria Sud", url: "https://64b16f23efbee.streamlock.net/teleliguriasud/teleliguriasud/playlist.m3u8", logo: "https://i.imgur.com/BeLAYJ6.jpg", group: "Regional DVB-T" },
+        { name: "Tele Mantova", url: "https://5ce9406b73c33.streamlock.net/TeleMantova/livestream/playlist.m3u8", logo: "https://i.imgur.com/bkSPcs4.png", group: "Regional DVB-T" },
+        { name: "Tele Mia", url: "https://playerssl.telemia.tv/fileadmin/hls/TelemiaHD/telemia85_mediachunks.m3u8", logo: "https://i.imgur.com/SdXpCwL.png", group: "Regional DVB-T" },
+        { name: "Tele Mia Extra", url: "https://playerssl.telemia.tv/fileadmin/hls/TelemiaExtra/telemiaextra_mediachunks.m3u8", logo: "https://i.imgur.com/upzBG32.png", group: "Regional DVB-T" },
+        { name: "Tele Mistretta", url: "https://live.mariatvcdn.com/telemistretta/8fbcd205ada81b295ee6c211c3a80dde.sdp/playlist.m3u8", logo: "https://i.imgur.com/OJ3zUS0.png", group: "Regional DVB-T" },
+        { name: "Tele Molise", url: "http://185.202.128.1:1935/Telemolise4K/Telemolise4K/playlist.m3u8", logo: "https://i.imgur.com/u5VD0x9.png", group: "Regional DVB-T" },
+        { name: "Tele Nord Genova", url: "https://64b16f23efbee.streamlock.net/telenord/telenord/playlist.m3u8", logo: "https://i.imgur.com/I6yegEK.png", group: "Regional DVB-T" },
+        { name: "Tele Nostra", url: "https://13574-8.b.cdn12.com/hls/f099fa8883.ulive/_c/master.m3u8", logo: "https://i.imgur.com/FACahKZ.png", group: "Regional DVB-T" },
+        { name: "Tele Occidente", url: "https://stream9.xdevel.com/video0s976532-1292/stream/playlist.m3u8", logo: "https://i.imgur.com/3aOiWKa.png", group: "Regional DVB-T" },
+        { name: "Tele Oltre", url: "http://1se1.troydesign.eu/np_teleoltre/_definst_/channel1_np_teleoltre/playlist.m3u8?ext=.m3u8", logo: "https://i.imgur.com/PxtJAxs.png", group: "Regional DVB-T" },
+        { name: "Tele One", url: "https://648026e87a75e.streamlock.net/teleone/teleone/playlist.m3u8", logo: "https://i.imgur.com/9trB6mj.png", group: "Regional DVB-T" },
+        { name: "Tele Pace Trento", url: "https://5a1178b42cc03.streamlock.net/telepacetrento/telepacetrento/playlist.m3u8", logo: "https://i.imgur.com/o5sQCpF.png", group: "Regional DVB-T" },
+        { name: "Tele Pavia", url: "http://wms.shared.streamshow.it:1935/telepavia/telepavia/live.m3u8", logo: "https://i.imgur.com/YVodo4T.png", group: "Regional DVB-T" },
+        { name: "Tele Pegaso", url: "https://flash2.xdevel.com/telepegasocanale812/telepegasocanale812/playlist.m3u8", logo: "https://i.imgur.com/FQkM8Vd.png", group: "Regional DVB-T" },
+        { name: "Tele Piadena", url: "https://stream3.xdevel.com/video0s975441-151/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/VqaPuQN.png", group: "Regional DVB-T" },
+        { name: "Tele Pordenone", url: "https://video.wifi4all.it/telepn/telepn.m3u8", logo: "https://i.imgur.com/dbYwXwg.png", group: "Regional DVB-T" },
+        { name: "Tele Quattro Trieste", url: "http://wms.shared.streamshow.it/telequattro/telequattro/playlist.m3u8", logo: "https://i.imgur.com/MFxQxve.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Ercolano", url: "https://rst.saiuzwebnetwork.it:19360/teleradioercolano-1/teleradioercolano-1.m3u8", logo: "https://i.imgur.com/YPuoy8N.jpg", group: "Regional DVB-T" },
+        { name: "Tele Radio Pace 1", url: "https://jk3lz2bwlw79-hls-live.mariatvcdn.it/teleradiopace1/efcc8fc46cab26315ce3f5845d76008f.sdp/playlist.m3u8", logo: "https://i.imgur.com/ORkkXM8.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Pace 2", url: "https://zkpywrbgdbeg-hls-live.mariatvcdn.it/teleradiopace2/254c9b5c52a73a94ef0f6169cbd05dc2.sdp/playlist.m3u8", logo: "https://i.imgur.com/U4E3eEr.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Pace 3", url: "https://932y4273djv8-hls-live.mariatvcdn.it/teleradiopace3/d2274c22e9ee09eb2eda01ed0496f8f5.sdp/playlist.m3u8", logo: "https://i.imgur.com/pTqIxFD.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Pace 4", url: "https://j78dpr7nyq5r-hls-live.mariatvcdn.it/teleradiopace4/13d74f2cfe921bfbc262697203d47d8f.sdp/playlist.m3u8", logo: "https://i.imgur.com/KPHHsN5.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Orte", url: "https://flash2.xdevel.com/ortetv/ortetv/index.m3u8", logo: "https://i.imgur.com/uX2uxvN.png", group: "Regional DVB-T" },
+        { name: "Tele Radio Sciacca", url: "https://5db313b643fd8.streamlock.net/teleradiosciaccatv/teleradiosciaccatv/playlist.m3u8", logo: "https://i.imgur.com/suhz5mE.png", group: "Regional DVB-T" },
+        { name: "Tele Sirio", url: "https://www.telesirio.it/live/stream.m3u8", logo: "https://i.imgur.com/mDN6QX1.png", group: "Regional DVB-T" },
+        { name: "Tele Spazio Messina", url: "https://rtm.cyberspazio.cloud:5443/LiveApp/streams/049229794390395765037801.m3u8", logo: "https://i.imgur.com/Io5w6lT.png", group: "Regional DVB-T" },
+        { name: "Tele Sud Puglia", url: "https://64b16f23efbee.streamlock.net/telesud/telesud/playlist.m3u8", logo: "https://i.imgur.com/fqTLtvs.png", group: "Regional DVB-T" },
+        { name: "Tele Tricolore", url: "https://59d7d6f47d7fc.streamlock.net/rs2/rs2/playlist.m3u8", logo: "https://i.imgur.com/A2XouAd.png", group: "Regional DVB-T" },
+        { name: "Tele Tutto", url: "https://600f07e114306.streamlock.net/TT_TELETUTTO/smil:TT.smil/playlist.m3u8", logo: "https://i.imgur.com/sZxMP7g.png", group: "Regional DVB-T" },
+        { name: "Tele Tutto 2", url: "https://600f07e114306.streamlock.net/TT2_TELETUTTO/livestream/playlist.m3u8", logo: "https://i.imgur.com/mxXbMaw.png", group: "Regional DVB-T" },
+        { name: "Tele Tutto 24", url: "https://600f07e114306.streamlock.net/TT24_TELETUTTO/livestream/playlist.m3u8", logo: "https://i.imgur.com/weKWQgx.png", group: "Regional DVB-T" },
+        { name: "Tele Venezia", url: "https://59d7d6f47d7fc.streamlock.net/televenezia/televenezia/playlist.m3u8", logo: "https://i.imgur.com/SavGpCE.jpg", group: "Regional DVB-T" },
+        { name: "Tele Video Agrigento", url: "https://59d7d6f47d7fc.streamlock.net/tva/tva/playlist.m3u8", logo: "https://i.imgur.com/AaPr63E.png", group: "Regional DVB-T" },
+        { name: "Tele8 Tv", url: "https://57068da1deb21.streamlock.net/teletv8/teletv8/playlist.m3u8", logo: "https://i.imgur.com/dM0HE6O.png", group: "Regional DVB-T" },
+        { name: "TeleAmbiente", url: "https://5f22d76e220e1.streamlock.net/teleambiente2024/teleambiente2024/playlist.m3u8", logo: "https://i.imgur.com/jxZcQhU.png", group: "Regional DVB-T" },
+        { name: "Telecampione", url: "https://5f22d76e220e1.streamlock.net/telecampione/telecampione/playlist.m3u8", logo: "https://i.imgur.com/LhjwmME.png", group: "Regional DVB-T" },
+        { name: "Telecittà Padova", url: "https://tango.wifi4all.it/telecitta/telecitta.m3u8", logo: "https://i.imgur.com/xvVgEaA.jpg", group: "Regional DVB-T" },
+        { name: "Telecity Lombardia", url: "https://64b16f23efbee.streamlock.net/telecitylombardia/telecitylombardia/playlist.m3u8", logo: "https://i.imgur.com/ECvJ3ZD.jpeg", group: "Regional DVB-T" },
+        { name: "Telecity Piemonte", url: "https://64b16f23efbee.streamlock.net/telecitypiemonte/telecitypiemonte/playlist.m3u8", logo: "https://i.imgur.com/CrlzHjv.jpeg", group: "Regional DVB-T" },
+        { name: "Telecity Valle D'Aosta", url: "https://64b16f23efbee.streamlock.net/telecityvda/telecityvda/playlist.m3u8", logo: "https://i.imgur.com/T9EsAOX.jpeg", group: "Regional DVB-T" },
+        { name: "TeleCostaSmeralda", url: "https://7e1cc2454f2242afabe05cc0a2f483cd.msvdn.net/tcs_live/tcs/tcs/playlist.m3u8", logo: "https://i.imgur.com/QLqkbss.png", group: "Regional DVB-T" },
+        { name: "Telegenova", url: "https://64b16f23efbee.streamlock.net/telegenova/telegenova/playlist.m3u8", logo: "https://i.imgur.com/D6HC0So.png", group: "Regional DVB-T" },
+        { name: "Teleiblea", url: "https://5f22d76e220e1.streamlock.net/teleiblea/teleiblea/playlist.m3u8", logo: "https://i.imgur.com/n1THygZ.png", group: "Regional DVB-T" },
+        { name: "Teleitalia 41", url: "https://streaming.softwarecreation.it/teleitalia/teleitalia/playlist.m3u8", logo: "https://i.imgur.com/lTuPSOn.png", group: "Regional DVB-T" },
+        { name: "Telejato", url: "https://telejato.liberotratto.com/hls/stream.m3u8", logo: "https://i.imgur.com/r3Dqzdj.png", group: "Regional DVB-T" },
+        { name: "Teleleonessa", url: "http://wms.shared.streamshow.it:1935/teleleonessa/teleleonessa/live.m3u8", logo: "https://i.imgur.com/jq3etlV.png", group: "Regional DVB-T" },
+        { name: "TeleMajg", url: "https://59d7d6f47d7fc.streamlock.net/telemajg/telemajg/playlist.m3u8", logo: "https://i.imgur.com/9tefonp.jpg", group: "Regional DVB-T" },
+        { name: "Telenova", url: "https://64b16f23efbee.streamlock.net/telenova/telenova/playlist.m3u8", logo: "https://i.imgur.com/x41IkJK.png", group: "Regional DVB-T" },
+        { name: "Telerama", url: "https://58d921499d3d3.streamlock.net/TeleRama/livestream/playlist.m3u8", logo: "https://i.imgur.com/enfqUlI.jpg", group: "Regional DVB-T" },
+        { name: "TeleRegione", url: "https://streaming.softwarecreation.it/TR118/TR118/playlist.m3u8", logo: "https://i.imgur.com/i5WozUP.png", group: "Regional DVB-T" },
+        { name: "TeleRegione Color", url: "https://live.antennasudwebtv.it:9443/hls/vodtele.m3u8", logo: "https://i.imgur.com/vi5Nf3S.png", group: "Regional DVB-T" },
+        { name: "TeleRegione Live", url: "https://5f22d76e220e1.streamlock.net/galluralive/galluralive/playlist.m3u8", logo: "https://i.imgur.com/DBrt8L3.png", group: "Regional DVB-T" },
+        { name: "TeleRent 7Gold", url: "https://router.xdevel.com/video0s86-21/stream/playlist.m3u8", logo: "https://i.imgur.com/YZadq0M.png", group: "Regional DVB-T" },
+        { name: "Telereporter", url: "https://5f22d76e220e1.streamlock.net/telereporter/telereporter/playlist.m3u8", logo: "https://i.imgur.com/WIo6SPc.png", group: "Regional DVB-T" },
+        { name: "Teleromagna", url: "https://livetr.teleromagna.it/teleromagna/live/playlist.m3u8", logo: "https://i.imgur.com/4jWadI8.png", group: "Regional DVB-T" },
+        { name: "Teleromagna 24", url: "https://livetr.teleromagna.it/mia/live/playlist.m3u8", logo: "https://i.imgur.com/Bpml478.png", group: "Regional DVB-T" },
+        { name: "TeleRomaDue", url: "https://57068da1deb21.streamlock.net/teletibur/teletibur/playlist.m3u8", logo: "https://i.imgur.com/78hA7ma.png", group: "Regional DVB-T" },
+        { name: "Telesud Trapani", url: "https://64b16f23efbee.streamlock.net/telesudtrapani/telesudtrapani/playlist.m3u8", logo: "https://i.imgur.com/tpZvU1P.png", group: "Regional DVB-T" },
+        { name: "Telesveva", url: "https://dc3.telesveva.com:4433/cmaf/livetv/index.mpd", logo: "https://i.imgur.com/SCDETZC.jpeg", group: "Regional DVB-T" },
+        { name: "Teleuniverso", url: "https://stream.ets-sistemi.it:19360/teleuniverso/teleuniverso.m3u8", logo: "https://i.imgur.com/u8E9wBb.png", group: "Regional DVB-T" },
+        { name: "Televallo Trapani", url: "https://64b16f23efbee.streamlock.net/televallo/televallo/playlist.m3u8", logo: "https://i.imgur.com/P6zuiRH.png", group: "Regional DVB-T" },
+        { name: "TG Norba 24", url: "https://router.xdevel.com/video0s976570-1326/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/9MhrrJK.png", group: "Regional DVB-T" },
+        { name: "TLT Molise", url: "https://5f22d76e220e1.streamlock.net/tltmolise/tltmolise/playlist.m3u8", logo: "https://i.imgur.com/wgwD7gh.png", group: "Regional DVB-T" },
+        { name: "Top Calcio 24", url: "https://sportitaliaamd.akamaized.net/live/Telelombardia/hls/1CCCD0BCA2F9C979BC0632230F8E31EAEA41562B/index.m3u8", logo: "https://i.imgur.com/DnVPKPE.png", group: "Regional DVB-T" },
+        { name: "Tremedia Tv", url: "https://stream4.xdevel.com/video0s976062-1263/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/dqRV1ff.jpeg", group: "Regional DVB-T" },
+        { name: "Trentino Tv", url: "https://5e73cf528f404.streamlock.net/TrentinoTV/livestream/playlist.m3u8", logo: "https://i.imgur.com/ROKOCR2.png", group: "Regional DVB-T" },
+        { name: "Tuscia Sabina 2000Tv", url: "http://ts2000tv.streaming.nextware.it:8081/ts2000tv/ts2000tv/chunks.m3u8", logo: "https://i.imgur.com/Tq5nEAy.png", group: "Regional DVB-T" },
+        { name: "Tv 12", url: "https://59d7d6f47d7fc.streamlock.net/tv12/tv12/playlist.m3u8", logo: "https://i.imgur.com/oxv08pJ.png", group: "Regional DVB-T" },
+        { name: "Tv Campi Flegrei", url: "https://tv.radiosaiuz.com:3836/live/campiflegreilive.m3u8", logo: "https://i.imgur.com/9d2K1nX.png", group: "Regional DVB-T" },
+        { name: "Tv Luna Napoli", url: "https://diretta.arcapuglia.it:8080/live/teleluna/index.m3u8", logo: "https://i.imgur.com/jxhuoyE.png", group: "Regional DVB-T" },
+        { name: "Tv Prato", url: "https://live.mariatvcdn.com/tvprato/2db0dd5674586686a867ec52c3aa8e06.sdp/mono.m3u8", logo: "https://i.imgur.com/zDeVpZd.png", group: "Regional DVB-T" },
+        { name: "Tv Qui Modena", url: "https://59d7d6f47d7fc.streamlock.net/tvqui/tvqui/playlist.m3u8", logo: "https://i.imgur.com/4bOYlfg.png", group: "Regional DVB-T" },
+        { name: "Tv Yes", url: "https://stream1.aswifi.it/radioyes/live/index.m3u8", logo: "https://i.imgur.com/1wsO8U7.png", group: "Regional DVB-T" },
+        { name: "Tva Vicenza", url: "http://fms.tvavicenza.it:1935/live/diretta_1/playlist.m3u8", logo: "https://i.imgur.com/FtFuPCC.png", group: "Regional DVB-T" },
+        { name: "Tvm Palermo", url: "https://stream2.xdevel.com/video1s86-22/stream/playlist_dvr.m3u8", logo: "https://i.imgur.com/uqOdAXB.png", group: "Regional DVB-T" },
+        { name: "Tvr Xenon", url: "https://cdn107-ita.azotosolutions.com:8443/cdnedge4/smil:live4.smil/playlist.m3u8", logo: "https://i.imgur.com/kLzW1Pf.jpg", group: "Regional DVB-T" },
+        { name: "Tvrs Tv", url: "https://cdn8.streamshow.it/cloud-tvrs/tvrs/playlist.m3u8", logo: "https://i.imgur.com/6p7hTmY.jpg", group: "Regional DVB-T" },
+        { name: "Umbria+ TRT", url: "https://diretta.teleterni.it:8080//show/show.m3u8", logo: "https://i.imgur.com/CU6BBgs.png", group: "Regional DVB-T" },
+        { name: "Umbria Tv", url: "https://umbriatv.stream.rubidia.it:8083/live/umbriatv/playlist.m3u8", logo: "https://i.imgur.com/XKCVEmK.png", group: "Regional DVB-T" },
+        { name: "Uno Tv", url: "https://stream1.aswifi.it/unotv/live/index.m3u8", logo: "https://i.imgur.com/4PNbqqL.png", group: "Regional DVB-T" },
+        { name: "Uno4 Tv", url: "https://cdn.uno4.it/index.m3u8", logo: "https://i.imgur.com/wfPPpBA.png", group: "Regional DVB-T" },
+        { name: "Vera Tv", url: "http://wms.shared.streamshow.it/veratv/veratv/playlist.m3u8", logo: "https://i.imgur.com/djMvkvN.png", group: "Regional DVB-T" },
+        { name: "VB33", url: "https://live.ipstream.it/vb33/vb33.stream/playlist.m3u8", logo: "https://i.imgur.com/ygDuIxU.png", group: "Regional DVB-T" },
+        { name: "Video Calabria", url: "https://a8a02dd9a49a4fc9810743615c65ab73.msvdn.net/live/S76734991/i6NeNqLYaspb/playlist.m3u8", logo: "https://i.imgur.com/Bc2AvIm.png", group: "Regional DVB-T" },
+        { name: "Video Mediterraneo", url: "https://bfbe5f347ac4424faf719dda285bc39e.msvdn.net/live/S54897858/4gWO7tTzpK3N/playlist.m3u8", logo: "https://i.imgur.com/hJHC3uQ.png", group: "Regional DVB-T" },
+        { name: "Video Nola", url: "https://videonola.aswifi.it/videonolaabr/live.m3u8", logo: "https://i.imgur.com/M5z5UoD.jpg", group: "Regional DVB-T" },
+        { name: "Video Regione Sicilia", url: "https://57214cb172d84f8cb311b91513952b03.msvdn.net/live/S40896499/ZuaLjACsWIL4/playlist.m3u8", logo: "https://i.imgur.com/0szwnR3.png", group: "Regional DVB-T" },
+        { name: "Video Star Tv Sicilia", url: "https://stream9.xdevel.com/video0s976556-1321/stream/playlist.m3u8", logo: "https://i.imgur.com/1ddJVZ7.jpg", group: "Regional DVB-T" },
+        { name: "Video Touring Tv", url: "https://streamingvideo.auranex.cloud/memfs/70baacad-47c6-41a6-aee0-86530c31e080.m3u8", logo: "https://i.imgur.com/E2Feao5.jpg", group: "Regional DVB-T" },
+        { name: "Videolina", url: "http://livestreaming.videolina.it/live/Videolina/playlist.m3u8", logo: "https://i.imgur.com/bnDZJwd.gif", group: "Regional DVB-T" },
+        { name: "Videonovara", url: "https://ed04.top-ix.org/avtvlive/videonovara/streaming/playlist.m3u8", logo: "https://i.imgur.com/NnO7E5I.png", group: "Regional DVB-T" },
+        { name: "Videotelecarnia", url: "https://rst2.saiuzwebnetwork.it:8081/vtccarnia/index.m3u8", logo: "https://i.imgur.com/r4K9JHW.png", group: "Regional DVB-T" },
+        { name: "Vintage Radio Tv", url: "https://5f22d76e220e1.streamlock.net/vintageradiotv/vintageradiotv/playlist.m3u8", logo: "https://i.imgur.com/n3LtBNT.jpg", group: "Regional DVB-T" },
+        { name: "Vuemme Tv", url: "https://5db313b643fd8.streamlock.net/Vuemme/Vuemme/playlist.m3u8", logo: "https://i.imgur.com/x5A0xU6.png", group: "Regional DVB-T" },
+        { name: "Webcom Tv", url: "https://www.webcomiptv.it/mistserver/passionelotto/index.m3u8", logo: "https://i.imgur.com/KLwj2vj.png", group: "Regional DVB-T" },
+        { name: "WLTV", url: "https://5db313b643fd8.streamlock.net/WLTV/WLTV/playlist.m3u8", logo: "https://i.imgur.com/aL8jKtU.png", group: "Regional DVB-T" },
+        { name: "Yvii Tv", url: "https://stream.wired-shop.com/hls/yviitv.m3u8", logo: "https://i.imgur.com/yP5AvDo.png", group: "Regional DVB-T" },
+        { name: "Zerouno Tv Music", url: "https://5f22d76e220e1.streamlock.net/zerounotvmusic/zerounotvmusic/playlist.m3u8", logo: "https://i.imgur.com/r74lqW8.png", group: "Regional DVB-T" },
+        { name: "Zerouno Tv News", url: "https://5f22d76e220e1.streamlock.net/01news/01news/playlist.m3u8", logo: "https://i.imgur.com/vxRzyjE.png", group: "Regional DVB-T" },
+        
+        // YouTube Live
+        { name: "Radio Colonna Tv", url: "https://www.youtube.com/radiocolonna/live", logo: "https://i.imgur.com/EcQvDfq.png", group: "YouTube Live" },
+        { name: "TRM h24", url: "https://www.youtube.com/user/trmh24/live", logo: "https://i.imgur.com/d47CdYU.png", group: "YouTube Live" },
+        { name: "Euronews Italian", url: "https://www.youtube.com/user/euronewsit/live", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Euronews_2022.svg/640px-Euronews_2022.svg.png", group: "YouTube Live" },
+        
+        // Twitch Live
+        { name: "Antenna Sicilia", url: "https://www.twitch.tv/antennasicilia", logo: "https://i.imgur.com/8DOdqsE.png", group: "Twitch Live" },
+        { name: "Telecolor", url: "https://www.twitch.tv/telecolorlive", logo: "https://i.imgur.com/rfNg6fw.png", group: "Twitch Live" },
+        { name: "Teleroma 56", url: "https://www.twitch.tv/teleroma_56", logo: "https://i.imgur.com/wGfpUj8.png", group: "Twitch Live" },
+        { name: "TeleRadioStereo", url: "https://www.twitch.tv/teleradiostereo", logo: "https://i.imgur.com/eRNgqnA.png", group: "Twitch Live" }
+    ];
+
+    // === FUNZIONE PER CARICARE I DATI DAL LOCALSTORAGE ===
+    function loadFromStorage() {
+        try {
+            const saved = localStorage.getItem('sandro_stream_playlists');
+            if (saved) {
+                savedPlaylists = JSON.parse(saved);
+                savedPlaylists = savedPlaylists.filter(p => p && p.name && p.channels && Array.isArray(p.channels));
+            } else {
+                savedPlaylists = [];
+            }
+            
+            const lastIndex = localStorage.getItem('sandro_stream_last_playlist');
+            lastLoadedPlaylistIndex = lastIndex !== null ? parseInt(lastIndex) : null;
+            
+            updatePlaylistSelector();
+            
+        } catch (e) {
+            console.error('Errore nel caricamento dal localStorage:', e);
+            savedPlaylists = [];
+            showToast('Errore nel caricamento dei dati salvati', true);
+        }
+    }
+
+    function savePlaylistsToStorage() {
+        try {
+            localStorage.setItem('sandro_stream_playlists', JSON.stringify(savedPlaylists));
+        } catch (e) {
+            console.error('Errore nel salvataggio playlist:', e);
+            showToast('Errore nel salvataggio delle playlist', true);
+        }
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('it-IT', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            second: '2-digit' 
+        });
+        document.getElementById('clock').innerText = timeStr;
+        
+        const connectionStatus = document.getElementById('connection-status');
+        if (navigator.onLine) {
+            connectionStatus.style.color = 'var(--success)';
+            connectionStatus.textContent = '● Live 4K';
+        } else {
+            connectionStatus.style.color = 'var(--rec-red)';
+            connectionStatus.textContent = '● Offline';
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+    }
+
+    function updatePlaylistSelector() {
+        const select = playlistSelector;
+        select.innerHTML = '<option value="">📋 Seleziona playlist</option>';
+        
+        if (savedPlaylists && savedPlaylists.length > 0) {
+            savedPlaylists.forEach((playlist, index) => {
+                if (!playlist || !playlist.name) return;
+                
+                const option = document.createElement('option');
+                option.value = index;
+                const channelCount = playlist.channels ? playlist.channels.length : 0;
+                option.textContent = `${playlist.name} (${channelCount} canali)`;
+                
+                if (lastLoadedPlaylistIndex !== null && index == lastLoadedPlaylistIndex) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+        }
+    }
+
+    function saveCurrentPlaylist() {
+        if (!currentChannels || currentChannels.length === 0) {
+            showToast('❌ Nessuna playlist da salvare', true);
+            return;
+        }
+        
+        const name = prompt('Nome della playlist:', 'Italia ' + new Date().toLocaleDateString());
+        if (!name || name.trim() === '') return;
+        
+        const existingIndex = savedPlaylists.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+        if (existingIndex !== -1) {
+            if (!confirm(`Una playlist con nome "${name}" esiste già. Sovrascrivere?`)) {
+                return;
+            }
+            savedPlaylists[existingIndex] = {
+                name: name,
+                date: new Date().toISOString(),
+                count: currentChannels.length,
+                channels: currentChannels
+            };
+        } else {
+            savedPlaylists.push({
+                name: name,
+                date: new Date().toISOString(),
+                count: currentChannels.length,
+                channels: currentChannels
+            });
+        }
+        
+        savePlaylistsToStorage();
+        updatePlaylistSelector();
+        showToast(`✅ Playlist "${name}" salvata!`);
+    }
+
+    function loadSavedPlaylist(index) {
+        if (index === '' || index === null || index === undefined) {
+            localStorage.removeItem('sandro_stream_last_playlist');
+            lastLoadedPlaylistIndex = null;
+            return;
+        }
+        
+        index = parseInt(index);
+        const playlist = savedPlaylists[index];
+        
+        if (playlist && playlist.channels && playlist.channels.length > 0) {
+            currentChannels = [...playlist.channels];
+            renderChannelList(currentChannels);
+            channelCountEl.innerText = currentChannels.length;
+            
+            localStorage.setItem('sandro_stream_last_playlist', index);
+            lastLoadedPlaylistIndex = index;
+            
+            showToast(`✅ Caricata: ${playlist.name} (${currentChannels.length} canali)`);
+        } else {
+            showToast('❌ Errore nel caricamento della playlist', true);
+        }
+    }
+
+    function exportPlaylist() {
+        if (!currentChannels || currentChannels.length === 0) {
+            showToast('❌ Nessuna playlist da esportare', true);
+            return;
+        }
+        
+        let m3uContent = '#EXTM3U\n';
+        currentChannels.forEach(ch => {
+            if (!ch.url || !ch.name) return;
+            
+            let extinf = `#EXTINF:-1`;
+            if (ch.logo) extinf += ` tvg-logo="${ch.logo}"`;
+            if (ch.group) extinf += ` group-title="${ch.group}"`;
+            extinf += `,${ch.name}\n`;
+            m3uContent += extinf;
+            m3uContent += `${ch.url}\n`;
+        });
+        
+        const blob = new Blob([m3uContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `playlist_italia_${new Date().toISOString().slice(0,10)}.m3u`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showToast('📤 Playlist esportata con successo');
+    }
+
+    function showPlaylistManager() {
+        const modal = document.getElementById('playlistManagerModal');
+        const list = document.getElementById('savedPlaylistsList');
+        
+        if (!savedPlaylists || savedPlaylists.length === 0) {
+            list.innerHTML = '<div class="empty-state">📭 Nessuna playlist salvata</div>';
+        } else {
+            list.innerHTML = savedPlaylists.map((playlist, index) => {
+                if (!playlist || !playlist.name) return '';
+                
+                const channelCount = playlist.channels ? playlist.channels.length : 0;
+                const dateStr = playlist.date ? new Date(playlist.date).toLocaleDateString('it-IT') : 'Data sconosciuta';
+                
+                return `
+                    <div class="playlist-item" data-index="${index}">
+                        <div class="playlist-item-info">
+                            <strong>${escapeHtml(playlist.name)}</strong>
+                            <small>${channelCount} canali • ${dateStr}</small>
+                        </div>
+                        <div class="playlist-item-actions">
+                            <button class="btn btn-primary btn-sm" onclick="loadSavedPlaylist(${index}); closePlaylistManager()">📂 Carica</button>
+                            <button class="btn btn-secondary btn-sm" onclick="renamePlaylist(${index})">✏️</button>
+                            <button class="btn btn-secondary btn-sm" style="background:#500;" onclick="deletePlaylist(${index})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        modal.style.display = 'flex';
+    }
+
+    function closePlaylistManager() {
+        document.getElementById('playlistManagerModal').style.display = 'none';
+    }
+
+    function renamePlaylist(index) {
+        const playlist = savedPlaylists[index];
+        if (!playlist) return;
+        
+        const newName = prompt('Nuovo nome della playlist:', playlist.name);
+        if (!newName || newName.trim() === '') return;
+        
+        playlist.name = newName;
+        playlist.date = new Date().toISOString();
+        savePlaylistsToStorage();
+        updatePlaylistSelector();
+        showPlaylistManager();
+        showToast('✏️ Playlist rinominata');
+    }
+
+    function deletePlaylist(index) {
+        if (confirm('🗑️ Eliminare questa playlist definitivamente?')) {
+            savedPlaylists.splice(index, 1);
+            savePlaylistsToStorage();
+            
+            if (lastLoadedPlaylistIndex == index) {
+                localStorage.removeItem('sandro_stream_last_playlist');
+                lastLoadedPlaylistIndex = null;
+                
+                currentChannels = [];
+                channelListContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📺</div><div>Carica una playlist per iniziare</div></div>';
+                channelCountEl.innerText = '0';
+                
+            } else if (lastLoadedPlaylistIndex > index) {
+                lastLoadedPlaylistIndex--;
+                localStorage.setItem('sandro_stream_last_playlist', lastLoadedPlaylistIndex);
+            }
+            
+            updatePlaylistSelector();
+            showPlaylistManager();
+            showToast('🗑️ Playlist eliminata');
+        }
+    }
+
+    function loadPlaylistFromURL() {
+        const url = document.getElementById('m3uInput').value.trim();
+        if (!url) {
+            showToast("❌ Inserisci un URL valido", true);
+            return;
+        }
+        
+        showToast("⏳ Caricamento lista in corso...");
+        
+        const loadBtn = event.target;
+        const originalText = loadBtn.innerHTML;
+        loadBtn.innerHTML = '<span class="loading-spinner"></span> Caricamento...';
+        loadBtn.disabled = true;
+        
+        fetch(url, { 
+            mode: 'cors',
+            headers: { 'Accept': 'text/plain' }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.text();
+            })
+            .then(data => {
+                parseM3U(data);
+                document.getElementById('m3uInput').value = '';
+            })
+            .catch(error => {
+                console.error('Errore fetch:', error);
+                showToast("❌ Errore caricamento URL. Prova con file locale.", true);
+            })
+            .finally(() => {
+                loadBtn.innerHTML = originalText;
+                loadBtn.disabled = false;
+            });
+    }
+
+    function loadPlaylistFromFile(input) {
+        const file = input.files[0];
+        if (!file) return;
+        
+        showToast(`⏳ Caricamento: ${file.name}`);
+        
+        const reader = new FileReader();
+        reader.onload = e => {
+            parseM3U(e.target.result);
+            showToast(`✅ File caricato: ${file.name}`);
+        };
+        reader.onerror = () => {
+            showToast('❌ Errore nella lettura del file', true);
+        };
+        reader.readAsText(file);
+        
+        input.value = '';
+    }
+
+    function parseM3U(data) {
+        if (!data || typeof data !== 'string') {
+            showToast('❌ Dati non validi', true);
+            return;
+        }
+        
+        const channels = [];
+        const lines = data.split('\n');
+        let currentChannel = { name: '', logo: '', group: 'Generale', url: '' };
+        let index = 0;
+
+        while (index < lines.length) {
+            let line = lines[index].trim();
+            
+            if (line.startsWith('#EXTINF:')) {
+                const tvgLogoMatch = line.match(/tvg-logo="([^"]*)"/i);
+                const groupMatch = line.match(/group-title="([^"]*)"/i);
+                const nameMatch = line.match(/,([^,]+)$/);
+                
+                currentChannel = {
+                    name: nameMatch ? nameMatch[1].trim() : 'Canale senza nome',
+                    logo: tvgLogoMatch ? tvgLogoMatch[1] : '',
+                    group: groupMatch ? groupMatch[1] : 'Generale',
+                    url: ''
+                };
+                
+            } else if (line.startsWith('http') && !line.includes('#') && currentChannel.name) {
+                currentChannel.url = line;
+                channels.push({ ...currentChannel });
+                currentChannel = { name: '', logo: '', group: 'Generale', url: '' };
+            }
+            index++;
+        }
+
+        const validChannels = channels.filter(ch => ch.url && ch.url.trim() !== '' && ch.name && ch.name.trim() !== '');
+        
+        if (validChannels.length === 0) {
+            channelListContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div>Nessun canale valido trovato</div></div>`;
+            showToast("❌ Nessun canale nella lista", true);
+        } else {
+            currentChannels = validChannels;
+            renderChannelList(currentChannels);
+            channelCountEl.innerText = currentChannels.length;
+            showToast(`✅ ${currentChannels.length} canali caricati`);
+            
+            playlistSelector.value = '';
+            localStorage.removeItem('sandro_stream_last_playlist');
+            lastLoadedPlaylistIndex = null;
+        }
+    }
+
+    function renderChannelList(channels) {
+        if (!channels || channels.length === 0) {
+            channelListContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📺</div><div>Nessun canale disponibile</div></div>';
+            return;
+        }
+        
+        channelListContainer.innerHTML = '';
+        
+        const grouped = channels.reduce((acc, ch) => {
+            const group = ch.group || 'Generale';
+            if (!acc[group]) acc[group] = [];
+            acc[group].push(ch);
+            return acc;
+        }, {});
+        
+        Object.keys(grouped).sort().forEach(group => {
+            const groupHeader = document.createElement('div');
+            groupHeader.style.cssText = `
+                padding: 15px 20px;
+                background: linear-gradient(90deg, rgba(229,9,20,0.15), rgba(229,9,20,0.05), transparent);
+                font-size: 13px;
+                color: #fff;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                font-weight: 700;
+                margin-top: 10px;
+                text-shadow: 0 0 10px var(--primary);
+                position: relative;
+                overflow: hidden;
+            `;
+            groupHeader.innerHTML = `${group} <span class="group-badge">${grouped[group].length}</span>`;
+            
+            groupHeader.style.animation = 'fadeIn 0.5s';
+            channelListContainer.appendChild(groupHeader);
+            
+            grouped[group].forEach(channel => {
+                addChannelToUI(channel);
+            });
+        });
+    }
+
+    function addChannelToUI(channel) {
+        if (!channel || !channel.name) return;
+        
+        const div = document.createElement('div');
+        div.className = 'channel-item';
+        div.dataset.url = channel.url;
+        div.dataset.name = channel.name;
+        div.dataset.group = channel.group || '';
+        
+        const logoHtml = channel.logo 
+            ? `<img src="${channel.logo}" alt="" onerror="this.style.display='none';this.parentNode.innerHTML='📺';">`
+            : '📺';
+        
+        div.innerHTML = `
+            <div class="channel-logo">
+                ${logoHtml}
+            </div>
+            <div class="channel-info">
+                <div class="channel-name">${escapeHtml(channel.name)}</div>
+                <div class="channel-group">${escapeHtml(channel.group || '')}</div>
+            </div>
+        `;
+        
+        // Preview al passaggio del mouse
+        div.onmouseenter = () => {
+            if (!div.classList.contains('active')) {
+                div.style.transform = 'translateX(8px) scale(1.02)';
+            }
+        };
+        
+        div.onmouseleave = () => {
+            if (!div.classList.contains('active')) {
+                div.style.transform = '';
+            }
+        };
+        
+        div.onclick = () => {
+            playChannel(channel.url, channel.name, channel.logo, div);
+        };
+        
+        channelListContainer.appendChild(div);
+    }
+
+    function playChannel(url, name, logo, element) {
+        if (!url) {
+            showToast('❌ URL non valido', true);
+            return;
+        }
+        
+        if (isRecording) {
+            if (confirm('Registrazione in corso. Fermare la registrazione per cambiare canale?')) {
+                stopRecording();
+            } else {
+                return;
+            }
+        }
+        
+        document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
+        
+        if (element) {
+            element.classList.add('active');
+            currentActiveChannelElement = element;
+        }
+
+        currentChannelInfo.innerHTML = `<span style="color: var(--primary); font-size: 18px;">▶</span> ${escapeHtml(name)}`;
+        video.title = name;
+
+        if (hls) {
+            hls.destroy();
+            hls = null;
+        }
+        
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+
+        if (Hls.isSupported()) {
+            hls = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+                backBufferLength: 90,
+                maxBufferLength: 60,
+                maxMaxBufferLength: 120
+            });
+            
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play().catch(e => {
+                    console.log('Autoplay bloccato:', e);
+                    showToast('Clicca sul video per avviare la riproduzione');
+                });
+            });
+            
+            hls.on(Hls.Events.ERROR, function(event, data) {
+                if (data.fatal) {
+                    console.error('Errore HLS fatale:', data);
+                    showToast('❌ Errore nello streaming', true);
+                }
+            });
+            
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.play().catch(e => {
+                console.log('Autoplay bloccato:', e);
+                showToast('Clicca sul video per avviare la riproduzione');
+            });
+        } else {
+            showToast('❌ Formato video non supportato', true);
+        }
+    }
+
+    // === NUOVE FUNZIONI ===
+    
+    // Screenshot
+    function takeScreenshot() {
+        if (!video.src && !hls) {
+            showToast("❌ Avvia un canale prima di fare screenshot", true);
+            return;
+        }
+        
+        try {
+            // Crea un canvas per catturare il frame corrente
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            if (canvas.width === 0 || canvas.height === 0) {
+                showToast("❌ Video non ancora pronto", true);
+                return;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Converti in immagine
+            const imageData = canvas.toDataURL('image/png');
+            
+            // Effetto flash
+            videoFlash.classList.add('flash');
+            setTimeout(() => videoFlash.classList.remove('flash'), 200);
+            
+            // Crea preview
+            const preview = document.createElement('img');
+            preview.src = imageData;
+            preview.className = 'screenshot-preview';
+            preview.onclick = () => {
+                // Download al click sulla preview
+                const a = document.createElement('a');
+                a.href = imageData;
+                a.download = `SANDRO_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                preview.remove();
+                showToast('✅ Screenshot scaricato');
+            };
+            
+            // Rimuovi preview dopo 5 secondi
+            setTimeout(() => {
+                if (preview.parentNode) preview.remove();
+            }, 5000);
+            
+            document.body.appendChild(preview);
+            
+            showToast('📸 Screenshot catturato! Clicca per scaricare');
+            
+        } catch (e) {
+            console.error('Errore screenshot:', e);
+            showToast('❌ Errore durante lo screenshot', true);
+        }
+    }
+    
+    // Toggle Audio
+    function toggleAudio() {
+        if (!video) return;
+        
+        if (isMuted) {
+            video.muted = false;
+            video.volume = previousVolume;
+            audioBtn.innerHTML = '🔊';
+            audioBtn.classList.remove('muted');
+            showToast('🔊 Audio attivato');
+        } else {
+            previousVolume = video.volume;
+            video.muted = true;
+            audioBtn.innerHTML = '🔇';
+            audioBtn.classList.add('muted');
+            showToast('🔇 Audio disattivato');
+        }
+        
+        isMuted = !isMuted;
+        
+        // Mostra indicatore audio
+        const audioStatus = document.createElement('div');
+        audioStatus.className = 'audio-status';
+        audioStatus.textContent = isMuted ? '🔇 MUTO' : `🔊 Volume: ${Math.round(previousVolume * 100)}%`;
+        document.querySelector('.video-container').appendChild(audioStatus);
+        setTimeout(() => audioStatus.remove(), 1000);
+    }
+    
+    // Picture in Picture
+    function togglePip() {
+        if (!video) {
+            showToast('❌ Video non disponibile', true);
+            return;
+        }
+        
+        if (document.pictureInPictureEnabled) {
+            if (document.pictureInPictureElement) {
+                document.exitPictureInPicture()
+                    .then(() => showToast('📺 PIP disattivato'))
+                    .catch(e => {
+                        console.error('Errore PIP:', e);
+                        showToast('❌ Errore PIP', true);
+                    });
+            } else {
+                video.requestPictureInPicture()
+                    .then(() => showToast('📺 PIP attivato'))
+                    .catch(e => {
+                        console.error('Errore PIP:', e);
+                        showToast('❌ PIP non supportato', true);
+                    });
+            }
+        } else {
+            showToast('❌ PIP non supportato', true);
+        }
+    }
+
+    function toggleRecording() {
+        isRecording ? stopRecording() : startRecording();
+    }
+
+    function startRecording() {
+        if (!video.src && !hls) {
+            showToast("❌ Avvia un canale prima di registrare", true);
+            return;
+        }
+        
+        recordedChunks = [];
+        
+        try {
+            const stream = video.captureStream ? video.captureStream() : 
+                          (video.mozCaptureStream ? video.mozCaptureStream() : null);
+                          
+            if (!stream || stream.getTracks().length === 0) {
+                showToast("❌ Impossibile catturare il video", true);
+                return;
+            }
+
+            let mimeType = 'video/webm';
+            const codecs = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
+            
+            for (const codec of codecs) {
+                if (MediaRecorder.isTypeSupported(codec)) {
+                    mimeType = codec;
+                    break;
+                }
+            }
+            
+            mediaRecorder = new MediaRecorder(stream, { 
+                mimeType: mimeType,
+                videoBitsPerSecond: 5000000
+            });
+
+            mediaRecorder.ondataavailable = e => { 
+                if (e.data && e.data.size > 0) recordedChunks.push(e.data); 
+            };
+            
+            mediaRecorder.onstop = saveRecording;
+            mediaRecorder.onerror = () => {
+                showToast('❌ Errore durante la registrazione', true);
+                stopRecording();
+            };
+            
+            mediaRecorder.start(1000);
+
+            isRecording = true;
+            recordingStartTime = Date.now();
+            recordBtn.classList.add('recording');
+            recordBtnText.innerText = "⏹️ Stop";
+            recIndicator.classList.add('active');
+            startRecordingTimer();
+            showToast("🔴 Registrazione avviata");
+            
+        } catch (e) {
+            console.error('Errore registrazione:', e);
+            showToast("❌ Errore registrazione: " + e.message, true);
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            isRecording = false;
+            stopRecordingTimer();
+            recordBtn.classList.remove('recording');
+            recordBtnText.innerText = "● Rec";
+            recIndicator.classList.remove('active');
+        }
+    }
+
+    function saveRecording() {
+        if (recordedChunks.length === 0) { 
+            showToast("❌ Nessun dato registrato", true); 
+            return; 
+        }
+        
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const fileName = `SANDRO_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.webm`;
+        
+        const recObj = {
+            id: Date.now(),
+            channel: currentChannelInfo.innerText.replace('▶', '').trim(),
+            date: new Date().toLocaleString('it-IT'),
+            blob: blob,
+            url: URL.createObjectURL(blob),
+            size: (blob.size / (1024 * 1024)).toFixed(2) + ' MB',
+            fileName: fileName,
+            duration: recTimer.innerText
+        };
+        
+        recordings.unshift(recObj);
+        
+        if (recordings.length > 30) {
+            const old = recordings.pop();
+            if (old.url) URL.revokeObjectURL(old.url);
+        }
+        
+        renderRecordings();
+        showToast("✅ Registrazione salvata in archivio");
+        
+        recordingsPanel.classList.add('open');
+    }
+
+    function startRecordingTimer() {
+        if (recordingTimerInterval) clearInterval(recordingTimerInterval);
+        
+        recordingTimerInterval = setInterval(() => {
+            const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+            const h = Math.floor(elapsed / 3600).toString().padStart(2, '0');
+            const m = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
+            const s = (elapsed % 60).toString().padStart(2, '0');
+            recTimer.innerText = `${h}:${m}:${s}`;
+        }, 1000);
+    }
+
+    function stopRecordingTimer() {
+        if (recordingTimerInterval) { 
+            clearInterval(recordingTimerInterval); 
+            recordingTimerInterval = null; 
+        }
+        recTimer.innerText = '00:00:00';
+    }
+
+    function toggleRecordingsPanel() { 
+        recordingsPanel.classList.toggle('open'); 
+        renderRecordings();
+    }
+
+    function renderRecordings() {
+        if (!recordingsList) return;
+        
+        recCountEl.innerText = recordings.length;
+        
+        if (recordings.length === 0) {
+            recordingsList.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📼</div><div>Nessuna registrazione</div></div>`;
+            return;
+        }
+        
+        recordingsList.innerHTML = recordings.map(rec => `
+            <div class="rec-item" data-id="${rec.id}">
+                <div style="flex:1; overflow:hidden;">
+                    <div style="font-weight: 600; color: #fff; margin-bottom: 4px;">📺 ${escapeHtml(rec.channel)}</div>
+                    <div style="color: #666; font-size: 11px; display: flex; gap: 10px;">
+                        <span>📅 ${rec.date}</span>
+                        <span>💾 ${rec.size}</span>
+                        <span>⏱️ ${rec.duration || '00:00'}</span>
+                    </div>
+                </div>
+                <div class="rec-actions">
+                    <button class="btn btn-primary btn-sm" onclick="playRecording(${rec.id})" title="Riproduci">▶️</button>
+                    <button class="btn btn-secondary btn-sm" onclick="downloadRecording(${rec.id})" title="Scarica">⬇️</button>
+                    <button class="btn btn-secondary btn-sm" style="background:#500;" onclick="deleteRecording(${rec.id})" title="Elimina">🗑️</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function playRecording(id) {
+        const rec = recordings.find(r => r.id === id);
+        if (rec && rec.url) {
+            recordingsPanel.classList.remove('open');
+            
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+            
+            video.src = rec.url;
+            video.play().catch(e => console.log('Errore riproduzione:', e));
+            
+            currentChannelInfo.innerHTML = `<span style="color: var(--primary);">📼</span> ${escapeHtml(rec.channel)} (Registrazione)`;
+            
+            document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
+        }
+    }
+
+    function downloadRecording(id) {
+        const rec = recordings.find(r => r.id === id);
+        if (rec && rec.url) {
+            const a = document.createElement('a');
+            a.href = rec.url;
+            a.download = rec.fileName || `SANDRO_${rec.id}.webm`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("⬇️ Download avviato");
+        }
+    }
+
+    function deleteRecording(id) {
+        if (!confirm('Eliminare questa registrazione?')) return;
+        
+        const rec = recordings.find(r => r.id === id);
+        if (rec && rec.url) {
+            URL.revokeObjectURL(rec.url);
+        }
+        
+        recordings = recordings.filter(r => r.id !== id);
+        renderRecordings();
+        showToast("🗑️ Registrazione eliminata");
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function showToast(message, isError = false) {
+        toast.innerText = message;
+        toast.style.borderLeftColor = isError ? '#ff3b30' : '#e50914';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function checkInstallPrompt() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.navigator.standalone === true;
+        const dismissed = localStorage.getItem('sandro_stream_install_dismissed');
+        
+        if (isIOS && !isStandalone && !dismissed) {
+            setTimeout(() => {
+                document.getElementById('installPrompt').classList.add('show');
+            }, 2000);
+        }
+    }
+    
+    function closeInstallPrompt() {
+        document.getElementById('installPrompt').classList.remove('show');
+        localStorage.setItem('sandro_stream_install_dismissed', 'true');
+    }
+
+    function initTouchGestures() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchEndX - touchStartX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && window.innerWidth <= 900) {
+                    sidebar.classList.add('open');
+                } else if (diff < 0 && window.innerWidth <= 900) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        }
+    }
+
+    function initializePlaylistStorage() {
+        try {
+            if (!savedPlaylists || !Array.isArray(savedPlaylists)) {
+                savedPlaylists = [];
+            }
+            
+            // Verifica se la playlist Italia PLUS esiste già
+            const italyPlaylistExists = savedPlaylists.some(p => p && p.name === 'Italia PLUS');
+            
+            // Se non esiste e abbiamo canali, la aggiungiamo
+            if (!italyPlaylistExists && currentChannels && currentChannels.length > 0) {
+                savedPlaylists.push({
+                    name: 'Italia PLUS',
+                    date: new Date().toISOString(),
+                    count: currentChannels.length,
+                    channels: currentChannels
+                });
+                savePlaylistsToStorage();
+                updatePlaylistSelector();
+                console.log('✅ Playlist Italia PLUS aggiunta al salvataggio');
+            }
+        } catch (e) {
+            console.error('Errore inizializzazione playlist:', e);
+        }
+    }
+
+    function initialize() {
+        console.log('🚀 Sandro Stream PLUS - Avvio...');
+        
+        loadFromStorage();
+        
+        // Carica tutti i canali italiani
+        currentChannels = ITALY_PLAYLIST;
+        renderChannelList(currentChannels);
+        channelCountEl.innerText = currentChannels.length;
+        showToast(`📺 Caricati ${currentChannels.length} canali italiani`);
+        
+        // Inizializza le playlist salvate (solo se non esistono già)
+        initializePlaylistStorage();
+        
+        checkInstallPrompt();
+        initTouchGestures();
+        
+        window.addEventListener('online', () => updateClock());
+        window.addEventListener('offline', () => updateClock());
+        
+        // Aggiungi supporto tastiera per screenshot (Cmd+Shift+S)
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'S') {
+                e.preventDefault();
+                takeScreenshot();
+            }
+        });
+        
+        console.log(`✅ Sandro Stream PLUS avviato con successo! ${currentChannels.length} canali disponibili`);
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+
+    window.toggleSidebar = toggleSidebar;
+    window.loadSavedPlaylist = loadSavedPlaylist;
+    window.saveCurrentPlaylist = saveCurrentPlaylist;
+    window.exportPlaylist = exportPlaylist;
+    window.showPlaylistManager = showPlaylistManager;
+    window.closePlaylistManager = closePlaylistManager;
+    window.renamePlaylist = renamePlaylist;
+    window.deletePlaylist = deletePlaylist;
+    window.loadPlaylistFromURL = loadPlaylistFromURL;
+    window.loadPlaylistFromFile = loadPlaylistFromFile;
+    window.takeScreenshot = takeScreenshot;
+    window.toggleAudio = toggleAudio;
+    window.togglePip = togglePip;
+    window.toggleRecording = toggleRecording;
+    window.toggleRecordingsPanel = toggleRecordingsPanel;
+    window.playRecording = playRecording;
+    window.downloadRecording = downloadRecording;
+    window.deleteRecording = deleteRecording;
+    window.closeInstallPrompt = closeInstallPrompt;
+</script>
+
+</body>
+</html>
